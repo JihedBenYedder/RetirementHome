@@ -10,6 +10,7 @@
     <module>RtmHomePersistence</module>
     <module>RtmHomeService</module>
     <module>RtmHomeWeb</module>
+    <module>RtmHomePersistance</module>
   </modules>
   
   	<properties>

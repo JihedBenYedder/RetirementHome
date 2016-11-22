@@ -1,4 +1,4 @@
-package org.RtmHomePersistence;
+package org.RtmHomePersistance;
 
 /**
  * Hello world!

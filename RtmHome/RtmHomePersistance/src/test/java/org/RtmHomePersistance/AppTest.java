@@ -1,4 +1,4 @@
-package org.RtmHomePersistence;
+package org.RtmHomePersistance;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
