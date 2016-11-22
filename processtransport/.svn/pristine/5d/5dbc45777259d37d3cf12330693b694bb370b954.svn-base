@@ -1,0 +1,193 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+ <h:head>
+ 	<title>ID PROCESS - search des Groupes</title>
+ 	 <link rel="stylesheet" type="text/css"  href="../../css/style.css" />
+ 	 
+ </h:head> 
+
+ <h:body>
+ <f:view>
+  <!-- end ghost --> 
+  <!-- shape -->
+  <div id="rd_shape">
+    <div id="rd_shape_l1">
+      <div id="rd_shape_l2"> 
+        <!-- brand -->
+        <div id="rd_brand">
+          <div id="rd_brand_l1"><img src="../../img/logo_mi.png" width="90" height="85" alt="DGAC" />
+            <div id="rd_brand_00">
+              <h1>Process-Transport</h1>
+              Solution générique de gestion d'entreprise de transport.</div>
+          </div>
+        </div>
+        <!-- end brand --> 
+        <!-- content -->
+        <div id="rd_content">
+        <h:form id="form">
+        <div id="rd_submenu" class="rd_kb">
+			<ul>
+		        <li>
+		        <a href="/processtransport-web/pages/index.html" >  
+              			<img width="16" height="16" alt="" src="../../picto/application_osx.png"></img>
+        				Retour Accueill 
+    			</a>
+		        </li>
+				<li><a href="/processtransport-web/pages/groupe/ajout-groupe.html" >  
+              			<img width="16" height="16" alt="" src="../../picto/add.png"></img>
+        				Ajouter Groupe 
+    				</a> 
+    			</li>
+    			<h:outputText id="display"></h:outputText>
+    			
+			</ul>
+		</div>
+          <h2>Gestion des Groupes</h2>
+          <div id="rd_content_l1">
+            <div id="rd_content_l2"> 
+            	<h3 class="rd_first">Recherche  groupe</h3>
+              <!-- edit area -->
+  				<!-- debut div search groupe -->
+			 		<table class="rd_tableform rd_tableform_2c">
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel  value="Nom du passager: " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="nom" value="#{groupeMB.nomP}"  >
+			     		    <p:ajax event="blur" update="nomMsg" />
+			     		</p:inputText>
+			     		<p:message id="nomMsg" for="nom" display="icon"/> 
+			     	</td>
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel  value="Client : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="client" value="#{groupeMB.nomCli}" >
+			     		    <p:ajax event="blur" update="organisationMsg" />
+			     		</p:inputText>
+			     		<p:message id="organisationMsg" for="client" display="icon"/> 
+			     	</td>
+			     </tr>
+			       
+		     	</table>
+		     	
+		     	<br />
+			     <div class="rd_kb rd_kb_right">
+			              <ul>
+				                <li> <p:commandLink id="rechercheGroupe" update="listGroupe" action="#{groupeMB.findGroupeByParam}" ajax="false"> 
+				                     <img width="16" height="16" alt="" src="../../picto/magnifier.png"></img>
+				        				<h:outputText value="Recherche" />  
+				    				</p:commandLink> 
+				    			</li>
+			              </ul>
+			            </div>
+				 <br />
+				 
+				 	
+		     
+             <div class="rd_jteleport">      
+                
+			    <p:dataTable id="tableauGroupe" var="groupe" value="#{groupeMB.listGroupe}">    
+		        <p:column headerText="Nom du groupe " style="width:24%">  
+		            <h:outputText value="#{groupe.nomGroup}" />  
+		        </p:column>  
+		  
+		        <p:column headerText="Client " style="width:24%">  
+		            <h:outputText value="#{groupe.client.nomOrg}" />  
+		        </p:column>  
+		  
+		        <p:column headerText="Tarif " style="width:24%">  
+		            <h:outputText value="#{groupe.tarif}" />  
+		        </p:column> 
+		         
+		          <p:column style="width:4%">  
+		                <p:commandButton id="selectButton" update=":form:displayGroupe" oncomplete="groupeDialog.show()" icon="ui-icon-search" title="View">  
+		                <f:setPropertyActionListener value="#{groupe}" target="#{groupeMB.selectedGroupe}" />  
+		            </p:commandButton>  
+		        </p:column> 
+		    </p:dataTable>
+		    
+			<!--  popup des groupes -->
+	  	
+	     <p:dialog header="Groupe Detail" widgetVar="groupeDialog" resizable="false" id="groupDlg"
+                showEffect="fade" hideEffect="explode" modal="false" width="680" height="380">
+                
+         	<div id="rd_submenu2" class="rd_kb" style="right: 5px;">
+				<ul>
+			        <li>
+			        	<p:commandLink id="fermer" update="groupDlg" action="groupDlg.hide()" >  
+	              			<img width="16" height="16" alt="" src="../../picto/application_osx.png"></img>
+	        				<h:outputText value="Fermer" />  
+	    				</p:commandLink> 
+	    			</li>
+					<li>
+					<p:outputPanel id="boutton">
+						<!--  bouton modifier : active les champs -->
+						<p:commandLink id="modifC" update="displayGroupe,boutton" action="#{groupeMB.activerChamps}" ajax="true" rendered="#{groupeMB.desactivation}">  
+	              			<img width="16" height="16" alt="" src="../../picto/add.png"></img>
+	        				<h:outputText value="Modifier Groupe" />  
+	    				</p:commandLink> 
+	    				<!-- bouton sauvegarder : desactive les champs  -->
+	    				<p:commandLink id="savegarderC" update="displayGroupe,boutton" action="#{groupeMB.desactiverChamps}" ajax="true" rendered="#{groupeMB.activation}">  
+	              			<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+	        				<h:outputText value="Sauvegarder Groupe" />  
+	    				</p:commandLink>
+	    			</p:outputPanel>
+	    			</li>
+				</ul>
+		</div>
+         
+         
+        <p:outputPanel id="displayGroupe">
+  		<br /><br /><br /><br />
+  		<table class="rd_tableform2 rd_tableform_2c" style="width: 650px">
+  				<tr>		     
+			     	<td class="rd_wlab"><h:outputText value="ID Groupe :" /> </td>  
+			        <td class="rd_winp">
+			        	 <h:outputText value="#{groupeMB.selectedGroupe.idGroupe}" style="font-weight:bold;" rendered="#{groupeMB.desactivation}"/>
+			        	 <p:inputText value="#{groupeMB.selectedGroupe.idGroupe}" style="font-weight:bold;"  rendered="#{groupeMB.activation}" disabled="true"/>						 						 
+			        </td>
+             	</tr>
+             
+             	<tr>	     
+			     	<td class="rd_wlab"><h:outputText value="Nom Groupe :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{groupeMB.selectedGroupe.nomGroup}" style="font-weight:bold;" rendered="#{groupeMB.desactivation}"/>
+			        	<p:inputText value="#{groupeMB.selectedGroupe.nomGroup}" style="font-weight:bold;"  rendered="#{groupeMB.activation}" />
+			        </td>
+	             		     
+			     	<td class="rd_wlab"><h:outputText value="Tarif :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{groupeMB.selectedGroupe.tarif}" style="font-weight:bold;" rendered="#{groupeMB.desactivation}"/>
+			        	<p:inputText value="#{groupeMB.selectedGroupe.tarif}" style="font-weight:bold;"  rendered="#{groupeMB.activation}" />
+			        </td>
+             	</tr>             	         
+        </table>
+        </p:outputPanel>     
+ 
+         </p:dialog>
+		    
+		    
+		    
+		    
+		   
+		    </div>     		     		    
+		<!-- fin div search groupe -->
+	     <!-- end edit area --> 
+            </div>
+          </div>
+          </h:form>
+        </div>
+      </div>
+      <!-- end content --> 
+    </div>
+  </div>
+  <!-- end shape --> 
+  <!-- end siteinfo -->
+
+</f:view>
+</h:body>
+</html>

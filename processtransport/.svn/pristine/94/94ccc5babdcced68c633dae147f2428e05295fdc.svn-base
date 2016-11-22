@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>ID PROCESS - Ajout des Passagers</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+
+</h:head>
+
+<h:body>
+	<f:view>
+		<!-- end ghost -->
+		<!-- shape -->
+		<div id="rd_shape">
+			<div id="rd_shape_l1">
+				<div id="rd_shape_l2">
+					<!-- brand -->
+					<div id="rd_brand">
+						<div id="rd_brand_l1">
+							<img src="../../img/logo_mi.png" width="90" height="85"
+								alt="DGAC" />
+							<div id="rd_brand_00">
+								<h1>Process-Transport</h1>
+								Solution générique de gestion d'entreprise de transport.
+							</div>
+						</div>
+					</div>
+					<!-- end brand -->
+					<!-- content -->
+					<div id="rd_content">
+						<h:form>
+							<div id="rd_submenu" class="rd_kb">
+								<ul>
+									<li><a href="javascript:history.back()" >
+					    					<img width="16" height="16" alt="" src="../../picto/cross.png"></img>
+					    					Retour
+					    				</a>
+					    			</li>
+									<li><p:commandLink id="sauvegarder" update="display"
+											actionListener="#{passagerMB.addPassager}" ajax="false">
+											<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+											<h:outputText value="Sauvegarder" />
+										</p:commandLink></li>
+									<h:outputText id="display"></h:outputText>
+
+								</ul>
+							</div>
+							<h2>Gestion des passagers</h2>
+							<div id="rd_content_l1">
+								<div id="rd_content_l2">
+									<h3 class="rd_first">Création passager</h3>
+									<!-- edit area -->
+
+									<!-- ici include du formulaire -->
+									<ui:include src="formulaire_ajout_passager.xhtml"></ui:include>
+
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</f:view>
+</h:body>
+</html>

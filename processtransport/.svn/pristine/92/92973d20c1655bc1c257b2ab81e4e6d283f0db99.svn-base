@@ -1,0 +1,306 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+ <h:head>
+ 	<title>ID PROCESS - search des Passager</title>
+ 	 <link rel="stylesheet" type="text/css"  href="../../css/style.css" />
+ 	 
+ </h:head> 
+ <h:body>
+ <f:view>
+  <!-- end ghost --> 
+  <!-- shape -->
+  <div id="rd_shape">
+    <div id="rd_shape_l1">
+      <div id="rd_shape_l2"> 
+        <!-- brand -->
+        <div id="rd_brand">
+          <div id="rd_brand_l1"><img src="../../img/logo_mi.png" width="90" height="85" alt="DGAC" />
+            <div id="rd_brand_00">
+              <h1>Process-Transport</h1>
+              Solution générique de gestion d'entreprise de transport.</div>
+          </div>
+        </div>
+        <!-- end brand --> 
+        <!-- content -->
+        <div id="rd_content">
+        <h:form id="form">
+        <div id="rd_submenu" class="rd_kb">
+			<ul>
+		        <li>
+					<a href="/processtransport-web/pages/index.html">
+						<img width="16" height="16" alt=""
+						src="../../picto/application_osx.png"></img> Retour Accueil
+					</a> 
+    			</li>
+				<li><a href="/processtransport-web/pages/passager/ajout-passager.html" >  
+              			<img width="16" height="16" alt="" src="../../picto/add.png"></img>
+        				Ajouter Passager 
+    				</a> 
+    			</li>
+    			
+			</ul>
+			<p:outputPanel id="displayPassager1"></p:outputPanel>
+		</div>
+          <h2>Gestion des Passagers</h2>
+          <div id="rd_content_l1">
+            <div id="rd_content_l2"> 
+            	<h3 class="rd_first">Recherche  passager</h3>
+              <!-- edit area -->
+              
+                
+	             
+				 
+			<!-- debut div search passager -->
+			 		     		     		    
+	                  
+		     	<table class="rd_tableform rd_tableform_2c">
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="nom" value="Nom: " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="nom" value="#{passagerMB.passager.nom}"  title="Ce champs est obligatoire" >
+			     		    <p:ajax event="blur" update="nomMsg" />
+			     		</p:inputText>
+			     		<p:message id="nomMsg" for="nom" display="icon"/> 
+			     	</td>
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="prenom" value="Prénom : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="prenom" value="#{passagerMB.passager.prenom}"  title="Ce champs est obligatoire" >
+			     		    <p:ajax event="blur" update="prenomMsg" />
+			     		</p:inputText>
+			     		<p:message id="prenomMsg" for="prenom" display="icon"/> 
+			     	</td>
+			     </tr>
+			       <tr>		     
+			     	<td class="rd_wlab">
+			     		<h:outputLabel value="Client: " />
+			     	</td>  
+			        <td class="rd_winp">
+			        	<p:inputText id="client" value="#{passagerMB.passager.client.nomOrg}"   >
+			     		    <p:ajax event="blur" update="organisationMsg" />
+			     		</p:inputText>
+			     		<p:message id="organisationMsg" for="client" display="icon"/> 	
+			     		     		
+			        </td>
+			        
+			        <td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel value="Ville : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputText id="ville" value="#{passagerMB.passager.adresse.ville}"   > 
+			     			<p:ajax event="blur" update="ville" />  
+			     		</p:inputText>
+			     		<p:message id="villemsg" for="ville" display="icon"/> 
+			     	</td>  
+			     	
+			     </tr>
+		     	</table>
+		     	
+		     	<br />
+			     <div class="rd_kb rd_kb_right">
+			              <ul>
+				                <li> <p:commandLink id="recherchePar" update="listPassager" action="#{passagerMB.findPassagerByParam}" ajax="false"> 
+				                     <img width="16" height="16" alt="" src="../../picto/magnifier.png"></img>
+				        				<h:outputText value="Recherche" />  
+				    				</p:commandLink> 
+				    			</li>
+			              </ul>
+			            </div>
+				 <br />
+				 
+				 	
+		     
+             <div class="rd_jteleport">      
+                
+			    <p:dataTable id="tableauPassager" var="passager" value="#{passagerMB.listPassagerRecherch}" rendered="#{passagerMB.tableauPass}"
+			    		paginator="true" rows="6"  
+	                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 	rowsPerPageTemplate="6,10,15">  
+	                 	  
+		        <p:column headerText="Nom Prenom" sortBy="#{passager.nom}" style="width:24%">  
+		            <h:outputText value="#{passager.nom} #{passager.prenom}" style="text-transform:uppercase" />  
+		        </p:column>  
+		  		
+		  		<p:column headerText="Client " sortBy="#{passager.client.nomOrg}" style="width:24%">  
+		            <h:outputText value="#{passager.client.nomOrg}" style="text-transform:uppercase" />  
+		        </p:column> 
+		        
+		        <p:column headerText="Adresse " sortBy="#{passager.adresse.rue}" style="width:24%">  
+		            <h:outputText value="#{passager.adresse.rue}" />  
+		        </p:column>  
+		  
+		        <p:column headerText="Ville " sortBy="#{passager.adresse.ville}" style="width:24%">  
+		            <h:outputText value="#{passager.adresse.ville}" style="text-transform:uppercase"/>  
+		        </p:column>  
+		  
+		        <p:column style="width:4%">  
+		                <p:commandButton id="selectButton" update=":form:displayPassager" oncomplete="passagerDialog.show()" icon="ui-icon-search" title="View">  
+		                <f:setPropertyActionListener value="#{passager}" target="#{passagerMB.selectedPassager}" />  
+		            </p:commandButton>  
+		        </p:column>  
+		  
+		    </p:dataTable>
+		    
+		<!--  popup des passagers -->
+	  	
+	     <p:dialog header="Passager Detail" widgetVar="passagerDialog" resizable="false" id="passagerDlg"
+                showEffect="fade" hideEffect="explode" modal="false" width="680" height="380">
+                
+         	<div id="rd_submenu2" class="rd_kb" style="right: 5px;">
+				<ul>
+			        <li>
+			        	<p:commandLink id="fermer" update="passagerDlg" action="passagerDlg.hide()" >  
+	              			<img width="16" height="16" alt="" src="../../picto/application_osx.png"></img>
+	        				<h:outputText value="Fermer" />  
+	    				</p:commandLink> 
+	    			</li>
+					<li>
+					<p:outputPanel id="boutton">
+						<!--  bouton modifier : active les champs -->
+						<p:commandLink id="modifC" update="displayPassager,boutton" action="#{passagerMB.activerChamps}" ajax="true" rendered="#{passagerMB.desactivation}">  
+	              			<img width="16" height="16" alt="" src="../../picto/add.png"></img>
+	        				<h:outputText value="Modifier Passager" />  
+	    				</p:commandLink> 
+	    				<!-- bouton sauvegarder : desactive les champs  -->
+	    				<p:commandLink id="savegarderC" update="displayPassager,boutton" action="#{passagerMB.desactiverChamps}" ajax="true" rendered="#{passagerMB.activation}">  
+	              			<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+	        				<h:outputText value="Sauvegarder Passager" />  
+	    				</p:commandLink>
+	    			</p:outputPanel>
+	    			</li>
+				</ul>
+		</div>
+         
+         
+         <p:outputPanel id="displayPassager">
+  		<br /><br /><br /><br />
+  		<table class="rd_tableform2 rd_tableform_2c" style="width: 650px">
+  				<tr>		     
+			     	<td class="rd_wlab"><h:outputText value="ID Passager :" /> </td>  
+			        <td class="rd_winp">
+			        	 <h:outputText value="#{passagerMB.selectedPassager.idPassager}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>
+			        	 <p:inputText value="#{passagerMB.selectedPassager.idPassager}" style="font-weight:bold;"  rendered="#{passagerMB.activation}" disabled="true"/>
+			        </td>
+			        <td class="rd_wlab"><h:outputText value="Civilité :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.civilite}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>			        	
+			        	<p:selectOneMenu id="civilite" value="#{passagerMB.passager.civilite}" rendered="#{passagerMB.activation}">  
+				            <f:selectItem itemLabel="#{passagerMB.selectedPassager.civilite}" itemValue="#{passagerMB.selectedPassager.civilite}" />  
+				            <f:selectItem itemLabel="Mlle" itemValue="melle" />  
+				            <f:selectItem itemLabel="Mme" itemValue="mme" />  
+				            <f:selectItem itemLabel="Mr" itemValue="mr" />  
+			        	</p:selectOneMenu>			        	
+			        </td>
+             	</tr>
+             
+             	<tr>	     
+			     	<td class="rd_wlab"><h:outputText value="Nom :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.nom}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>
+			        	<p:inputText value="#{passagerMB.selectedPassager.nom}" style="font-weight:bold;"  rendered="#{passagerMB.activation}" />
+			        </td>
+	             		     
+			     	<td class="rd_wlab"><h:outputText value="Prenom :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.prenom}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>
+			        	<p:inputText value="#{passagerMB.selectedPassager.prenom}" style="font-weight:bold;"  rendered="#{passagerMB.activation}" />
+			        </td>
+             	</tr>
+             	
+             	<tr>             		     
+			     	<td class="rd_wlab"><h:outputText value="Mobile :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.mobile}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>
+			        	<p:inputMask id="mobile" value="#{passagerMB.selectedPassager.mobile}" style="font-weight:bold;" mask="99 99 99 99 99" required="true" requiredMessage="Ce champs est obligatoire" rendered="#{passagerMB.activation}" >
+					     	<p:ajax event="blur" update="mobileMsg" />
+					    </p:inputMask>
+					    <p:message id="mobileMsg" for="mobile" display="icon"/>
+			        </td>
+			     
+			     	<td class="rd_wlab"><h:outputText value="Tel fix :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.telfix}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>
+			        	<p:inputMask id="telfix" value="#{passagerMB.selectedPassager.telfix}" style="font-weight:bold;" mask="99 99 99 99 99" required="true" requiredMessage="Ce champs est obligatoire" rendered="#{passagerMB.activation}" >
+					     	<p:ajax event="blur" update="telfixMsg" />
+					    </p:inputMask>
+					    <p:message id="telfixMsg" for="telfix" display="icon"/>					    
+			        </td>
+             	</tr>
+             	
+             	<tr>	     
+			     	<td class="rd_wlab"><h:outputText value="Adresse :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.adresse.rue}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>
+			        	<p:inputText value="#{passagerMB.selectedPassager.adresse.rue}" style="font-weight:bold;"  rendered="#{passagerMB.activation}" />
+			        </td>
+			        <td class="rd_wlab"><h:outputText value="Complement :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.adresse.precision}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>
+			        	<p:inputText value="#{passagerMB.selectedPassager.adresse.precision}" style="font-weight:bold;"  rendered="#{passagerMB.activation}" />
+			        </td>
+               </tr>
+               <tr>	     
+			     	<td class="rd_wlab"><h:outputText value="Code postal :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.adresse.cp}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>			        	
+						<p:inputMask id="cp" value="#{passagerMB.selectedPassager.adresse.cp}" style="font-weight:bold;" mask="99999" required="true" requiredMessage="Ce champs est obligatoire" rendered="#{passagerMB.activation}" >
+			     			<p:ajax event="blur" update="cpMsg" />
+			     		</p:inputMask>
+			     		<p:message id="cpMsg" for="cp" display="icon"/> 
+			        </td>
+			        <td class="rd_wlab"><h:outputText value="Ville :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.adresse.ville}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>
+			        	<p:inputText value="#{passagerMB.selectedPassager.adresse.ville}" style="font-weight:bold;"  rendered="#{passagerMB.activation}" />
+			        </td>
+               </tr>
+               <tr>	     
+			     	<td class="rd_wlab"><h:outputText value="Mail :" /> </td>  
+			        <td class="rd_winp">
+			        	<h:outputText value="#{passagerMB.selectedPassager.mail}" style="font-weight:bold;" rendered="#{passagerMB.desactivation}"/>
+			        	<p:inputText id="mail" value="#{passagerMB.selectedPassager.mail}" required="true" rendered="#{passagerMB.activation}" 
+			     				label="email" requiredMessage="Address email est obligatoire"
+								validatorMessage="le format email est invalide">
+			     			<p:ajax event="blur" update="mailMsg" />
+			     			<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+			     		</p:inputText>
+			     		<p:message id="mailMsg" for="mail" display="icon"/> 
+			        </td>
+			        <td class="rd_wlab"><h:outputText value="" /> </td>  
+			        <td class="rd_winp"></td>
+               </tr>
+        </table>
+        </p:outputPanel>     
+ 
+         </p:dialog>  
+    
+	</div>    
+     
+     	
+     	<!-- fin div search particulier -->
+     
+     	   
+     
+	 
+	 	 
+			  
+              <!-- end edit area --> 
+            </div>
+          </div>
+          </h:form>
+        </div>
+      </div>
+      <!-- end content --> 
+    </div>
+  </div>
+  <!-- end shape --> 
+  <!-- end siteinfo -->
+
+</f:view>
+</h:body>
+</html>

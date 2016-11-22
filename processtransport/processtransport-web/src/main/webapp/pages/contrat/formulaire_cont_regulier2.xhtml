@@ -1,0 +1,308 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<div class="rd_jteleport">
+
+	<table id="monTable" style="border: none">
+		<tr style="border: none">
+			<td>			
+				<h:outputLabel value="Date de début: " /> 
+				<br /><br /> 
+				<h:outputLabel value="Date de fin : " />
+			</td>
+			<td>
+				<p:calendar value="#{contratMB.contrat.dateDebutContrat}"
+					locale="fr" required="true" showOn="button" navigator="true" id="frCal" /> 
+					<br /><br /> 
+				<p:calendar value="#{contratMB.contrat.dateFinContrat}"
+					locale="fr" required="true" showOn="button" navigator="true" id="frCl" />
+				<p:message for="frCl"  display="icon"/>
+			</td>
+	
+			<td>
+				<h:outputLabel value="Véhicule Adapté : " /> 
+				<h:selectOneRadio
+					id="vehicule" value="#{contratMB.contrat.vehiculeAdapte}">
+					<f:selectItem itemLabel="Oui" itemValue="true" />
+					<f:selectItem itemLabel="Non" itemValue="false" />
+				</h:selectOneRadio>
+			</td>
+			<td style="text-align: center;">
+				<h:outputLabel value=" Qui paye  : " />
+				<h:selectOneRadio id="quipaye"
+					value="#{contratMB.contrat.payeur}">
+					<f:selectItem itemLabel="Passager" itemValue="1" />
+					<f:selectItem itemLabel="Client" itemValue="2" />
+				</h:selectOneRadio>
+			</td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Passager: " /></td>
+			<td>
+				<p:selectOneMenu required="true"
+					value="#{contratMB.contrat.passager.idPassager}">
+					<f:selectItem itemLabel="-----" itemValue="0" />
+					<f:selectItems value="#{passagerMB.listPassager}" var="pass"
+						itemLabel="#{pass.nom} #{pass.prenom}"
+						itemValue="#{pass.idPassager}" />
+
+				</p:selectOneMenu> 
+			</td>
+			<td colspan="2">
+				<h:outputLabel value="Dans le cadre de Groupe: " />
+				<h:selectOneRadio
+					id="cadre_groupe" value="#{contratMB.contrat.dansCadreGroupe}">
+					<f:selectItem itemLabel="Oui" itemValue="true" />
+					<f:selectItem itemLabel="Non" itemValue="false" />
+				</h:selectOneRadio>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr><td colspan="6"><strong> Détails 1 </strong><hr /></td></tr>
+		<tr>
+			<!-- la date de validite de detail -->
+			<td><h:outputLabel value="Periode Validité : " /></td>
+			<td>Du
+				<p:calendar value="#{contratMB.detailcontrat.dateDebutDetail}"
+					locale="fr" showOn="button" navigator="true" id="debDetail" /> 
+					<br /><br /> 
+			</td>
+			<td>Au
+				<p:calendar value="#{contratMB.detailcontrat.dateFinDetail}"
+					locale="fr" showOn="button" navigator="true" id="finDetail" /> 
+					<br /><br /> 
+			</td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Adresse départ : " /></td>
+			<td>
+				<!-- adresse depart + CP + ville + complement-->
+				 
+				<!-- adresse --> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseDepart.rue}">
+				</p:inputText> 
+			</td>
+			<!-- code postal -->
+			<td><h:outputLabel value="Code Postale : " /> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseDepart.cp}">
+				</p:inputText> 
+			</td>
+			
+			<!-- ville -->
+			<td><h:outputLabel value="Ville : " /> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseDepart.ville}">
+				</p:inputText> 
+			</td>
+		</tr>
+		<tr>
+		<!-- complement d'adresse -->
+			<td><h:outputLabel value=" Complément d'adresse  : " /></td>
+			<td colspan="3">
+				<p:inputText value="#{contratMB.detailcontrat.adresseDepart.precision}" size="77">
+				</p:inputText> 
+			</td>
+		</tr>
+		<tr><td><br /><br /></td></tr>
+		<tr>
+			<td>
+				<h:outputLabel value="Adresse Arrivée  : " />
+			</td>
+			<td>
+				<!-- adresse depart + CP + ville + complement --> 
+				
+				<!-- adresse --> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseArrivee.rue}">
+				</p:inputText> 
+			</td>
+			
+			<!-- code postal -->
+			<td><h:outputLabel value="Code Postale : " /> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseArrivee.cp}">
+				</p:inputText> 
+			</td>	
+			<!-- ville -->
+			<td><h:outputLabel value="Ville : " /> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseArrivee.ville}">
+				</p:inputText> 
+			</td>
+		</tr>
+		<tr>
+			<!-- complement d'adresse -->
+			<td><h:outputLabel value=" Complément d'adresse  : " /></td>
+			<td colspan="3">
+				<p:inputText value="#{contratMB.detailcontrat.adresseArrivee.precision}" size="77">
+				</p:inputText> 
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<br /><br />
+				<h:outputLabel value="Durée : " />
+			</td>
+			<td>
+				<br /><br />
+				<h:selectOneMenu  value="#{contratMB.detailcontrat.duree}">
+					<f:selectItem itemLabel="15" itemValue="15" />
+					<f:selectItem itemLabel="30" itemValue="30" />
+					<f:selectItem itemLabel="45" itemValue="45" />
+					<f:selectItem itemLabel="60" itemValue="60" />
+					<f:selectItem itemLabel="90" itemValue="90" />
+				</h:selectOneMenu> Min</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Tarif HT :" /></td>
+			<td><p:inputText onkeyup="CalculerMontantTTC()"
+					value="#{contratMB.detailcontrat.tarifTtc}" /></td>
+		
+			<td><h:outputLabel for="tarifttc" value="Tarif TTC :" />
+			<p:inputText onkeyup="CalculerMontantHT()"
+					value="#{contratMB.detailcontrat.tarifTtc}" /></td>
+		</tr>
+		
+		
+		<c:forEach items="#{contratMB.listDet}" var="detailcontrat">
+		
+		
+		<!-- Ici les details a saisir -->	
+			<tr>
+			<!-- la date de validite de detail -->
+			<td><h:outputLabel value="Période Validité : " /></td>
+			<td>Du
+				<p:calendar value="#{detailcontrat.dateDebutDetail}"
+					locale="fr" showOn="button" navigator="true"/> 
+					<br /><br /> 
+			</td>
+			<td>Au
+				<p:calendar value="#{detailcontrat.dateFinDetail}"
+					locale="fr" showOn="button" navigator="true" /> 
+					<br /><br /> 
+			</td>
+			<td>
+			<p:commandButton title="Ajouter un nouveau details" value=" - "
+			action="#{contratMB.removeDetailContrat(detailcontrat)}"  ajax="false" />
+			</td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Adresse départ : " /></td>
+			<td>
+				<!-- adresse depart + CP + ville + complement-->
+				 
+				<!-- adresse --> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseDepart.rue}">
+				</p:inputText> 
+			</td>
+			<!-- code postal -->
+			<td><h:outputLabel value="Code Postale : " /> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseDepart.cp}">
+				</p:inputText> 
+			</td>
+
+			<!-- ville -->
+			<td><h:outputLabel value="Ville : " /> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseDepart.ville}">
+				</p:inputText> 
+			</td>
+		</tr>
+		<tr>
+		<!-- complement d'adresse -->
+			<td><h:outputLabel value=" Complément d'adresse  : " /></td>
+			<td colspan="3">
+				<p:inputText value="#{contratMB.detailcontrat.adresseDepart.precision}" size="77">
+				</p:inputText> 
+			</td>
+		</tr>
+		<tr><td><br /><br /></td></tr>
+		<tr>
+			<td>
+				<h:outputLabel value="Adresse Arrivée  : " />
+			</td>
+			<td>
+				<!-- adresse depart + CP + ville + complement --> 
+				
+				<!-- adresse --> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseArrivee.rue}">
+				</p:inputText> 
+			</td>
+			<!-- code postal -->
+			<td><h:outputLabel value="Code Postale : " /> 
+			<p:inputText value="#{contratMB.detailcontrat.adresseArrivee.cp}">
+				</p:inputText> 
+			</td>
+
+			<!-- ville -->
+			<td><h:outputLabel value="Ville : " /> 
+				<p:inputText value="#{contratMB.detailcontrat.adresseArrivee.ville}">
+				</p:inputText> 
+			</td>
+		</tr>
+		<tr>
+			<!-- complement d'adresse -->
+			<td><h:outputLabel value=" Complément d'adresse  : " /></td>
+			<td colspan="3">
+				<p:inputText  value="#{contratMB.detailcontrat.adresseArrivee.precision}" size="77">
+				</p:inputText> 
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<br /><br />
+				<h:outputLabel value="Durée : " />
+			</td>
+			<td>
+				<br /><br />
+				<h:selectOneMenu  value="#{contratMB.detailcontrat.duree}">
+					<f:selectItem itemLabel="15" itemValue="15" />
+					<f:selectItem itemLabel="30" itemValue="30" />
+					<f:selectItem itemLabel="45" itemValue="45" />
+					<f:selectItem itemLabel="60" itemValue="60" />
+					<f:selectItem itemLabel="90" itemValue="90" />
+				</h:selectOneMenu> Min</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Tarif HT :" /></td>
+			<td><p:inputText  onkeyup="CalculerMontantTTC()"
+					value="#{contratMB.detailcontrat.tarifTtc}" /></td>
+		
+			<td><h:outputLabel for="tarifttc" value="Tarif TTC :" />
+			<p:inputText onkeyup="CalculerMontantHT()"
+					value="#{contratMB.detailcontrat.tarifTtc}" /></td>
+		</tr>
+		
+		</c:forEach>
+			
+	</table>
+	
+<!-- 	<h3>Commentaire</h3> -->
+<!-- 	<p:inputTextarea value="#{contratMB.contrat.commentaire}" rows="6" -->
+<!-- 		cols="33" /> -->
+
+</div>
+<br />
+<br />
+
+
+
+
+<div>
+<hr />
+
+	<p:commandButton id="ajout_contrat_reg" title="ajouter un nouveau details" value=" + "
+		action="#{contratMB.ajoutListeDetail}" immediate="true" ajax="false" />
+</div>
+</html>

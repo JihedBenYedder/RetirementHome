@@ -1,0 +1,298 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+      
+ <h:head>
+ 	<title>ID PROCESS - search des Clients</title>
+ 	 <link rel="stylesheet" type="text/css"  href="../../css/style.css" />
+ 	 
+ </h:head> 
+
+ <h:body>
+ <f:view>
+  <!-- end ghost --> 
+  <!-- shape -->
+  <div id="rd_shape">
+    <div id="rd_shape_l1">
+      <div id="rd_shape_l2"> 
+        <!-- brand -->
+        <div id="rd_brand">
+          <div id="rd_brand_l1"><img src="../../img/logo_mi.png" width="90" height="85" alt="DGAC" />
+            <div id="rd_brand_00">
+              <h1>Process-Transport</h1>
+              Solution générique de gestion d'entreprise de transport.</div>
+          </div>
+        </div>
+        <!-- end brand --> 
+        <!-- content -->
+        <div id="rd_content">
+        <h:form id="form">
+        <div id="rd_submenu" class="rd_kb">
+			<ul>
+		        <li>
+		        <a href="/processtransport-web/pages/index.html" >  
+              			<img width="16" height="16" alt="" src="../../picto/application_osx.png"></img>
+        				Retour Accueill 
+    			</a>
+		        </li>
+				<li><a href="/processtransport-web/pages/client/ajout-client.html" >  
+              			<img width="16" height="16" alt="" src="../../picto/add.png"></img>
+        				Ajouter Client 
+    				</a> 
+    			</li>
+    			
+			</ul>
+		</div>
+          <h2>Gestion des clients</h2>
+          <div id="rd_content_l1">
+            <div id="rd_content_l2"> 
+            	<h3 class="rd_first">Recherche  client</h3>
+              <!-- edit area -->
+              
+
+     	<!-- debut search des clients (organisation) -->
+     		<p:outputPanel name="div_organisation">  		     		     		    
+	                
+		     	<table class="rd_tableform rd_tableform_2c">
+		     	   <tr>		     
+			     	<td class="rd_wlab">
+			     		<h:outputLabel value="Nom de l'organisation : " />
+			     	</td>  
+			        <td class="rd_winp">
+			        	<p:inputText id="organisation" value="#{clientMB.client.nomOrg}"   >
+			     		    <p:ajax event="blur" update="organisationMsg" />
+			     		</p:inputText>
+			     		<p:message id="organisationMsg" for="organisation" display="icon"/> 			     		
+			        </td>
+			        
+			        <td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="villeOrg" value="Ville : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputText id="villeOrg" value="#{clientMB.client.adresse.ville}"   > 
+			     			<p:ajax event="blur" update="villeOrgMsg" />  
+			     		</p:inputText>
+			     		<p:message id="villeOrgMsg" for="villeOrg" display="icon"/> 
+			     	</td>  
+			     	
+			     </tr>
+			 			              		           
+		     	</table>
+		     	
+		     	<!--  bouton de recherche -->		  
+			    <div class="rd_kb rd_kb_right" style="margin: 10px 0px 20px 0px">
+			              <ul>
+				                <li> <p:commandLink id="rechercheOrg" update="listClient" action="#{clientMB.chercheClientParNomOuVille}" ajax="false"> 
+				                     <img width="16" height="16" alt="" src="../../picto/magnifier.png"></img>
+				        				<h:outputText value="Recherche" />  
+				    				</p:commandLink> 
+				    			</li>
+			              </ul>
+	            </div>
+            	       	   	
+            	       	   	
+		        <!-- tableau des resultat de recherche avaec pagination et tri par colonne -->    	       	   	
+		       
+		        <p:dataTable id="clientsOrg" var="client" value="#{clientMB.listClientOrg}" rendered="#{clientMB.tableauOrg}"
+			         	paginator="true" rows="6"  
+	                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 	rowsPerPageTemplate="6,10,15">
+	                    
+			        <p:column headerText="Nom Client " sortBy="#{client.nomOrg}" style="width:20%">  
+			            <h:outputText value="#{client.nomOrg}" style="text-transform:uppercase" />  
+			        </p:column>  
+			        
+			  		<p:column headerText="Nom Responsable " sortBy="#{client.nomRep}" style="width:19%">  
+			            <h:outputText value="#{client.civilite}. #{client.nomRep} #{client.prenomRep}"
+			            style="text-transform:uppercase" />  
+			        </p:column>  
+			        
+			         <p:column headerText="adresse " sortBy="#{client.adresse.ville}" style="width:30%">  
+			            <h:outputText value="#{client.adresse.rue} #{client.adresse.cp} #{client.adresse.ville.toUpperCase()}" />  
+			        </p:column>
+			       
+			        <p:column headerText="Tél " style="width:12%">  
+			            <h:outputText value="#{client.telfix}" />  
+			        </p:column>
+			  
+			        <p:column headerText="Détails" style="width:6%">  
+			                <p:commandButton id="selectButton" update=":form:displayOrg" oncomplete="clientDialogOrg.show()" icon="ui-icon-search" title="View">  
+			                <f:setPropertyActionListener value="#{client}" target="#{clientMB.selectedClientOrg}" />  
+			            </p:commandButton>  
+			        </p:column>  
+		  
+		    	</p:dataTable>  
+	
+	
+			<!--  Popup des details des clients organisation --> 
+			 	
+			   	<p:dialog header="Client Organisation Detail" widgetVar="clientDialogOrg" resizable="false" id="clientDlgOrg"  
+			                showEffect="fade" hideEffect="explode" modal="false" width="750" height="400">  
+			  			  
+			  		<div id="rd_submenu2" class="rd_kb" style="right: 5px;">
+							<ul>
+						        <li>
+						        	<p:commandLink id="retourAccueillOrg" update="clientDlgOrg" action="clientDlgOrg.hide()" >  
+				              			<img width="16" height="16" alt="" src="../../picto/application_osx.png"></img>
+				        				<h:outputText value="Fermer" />  
+				    				</p:commandLink> 
+				    			</li>
+								<li>
+								<p:outputPanel id="bouttonOrg">
+									<!-- bouton modifier : active les champs -->
+									<p:commandLink id="modifCOrg" update="displayOrg,bouttonOrg" action="#{clientMB.activerChamps}" ajax="true" rendered="#{clientMB.desactivation}">  
+				              			<img width="16" height="16" alt="" src="../../picto/add.png"></img>
+				        				<h:outputText value="Modifier Client" />  
+				    				</p:commandLink> 
+				    				<!-- bouton sauvegarder : desactive les champs -->
+				    				<p:commandLink id="savegarderCOrg" update="displayOrg,bouttonOrg" action="#{clientMB.desactiverChamps}" ajax="true" rendered="#{clientMB.activation}">  
+				              			<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+				        				<h:outputText value="Sauvegarder Client" />  
+				    				</p:commandLink>
+				    			</p:outputPanel>
+				    			</li>
+							</ul>
+					</div>
+			  		<p:outputPanel id="displayOrg">
+			  		<br /><br /><br /><br />
+			  		<table class="rd_tableform2 rd_tableform_2c" style="width: 720px">
+				     	<tr>		     				     			                                   
+			            	<td class="rd_wlab"><h:outputText value="Nom organisation :" /> </td> 
+			            	<td class="rd_winp"  colspan="4">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.nomOrg}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+			            		<p:inputText value="#{clientMB.selectedClientOrg.nomOrg}" style="font-weight:bold" rendered="#{clientMB.activation}"/>
+			            	</td>
+			            	
+			            </tr>
+			            <tr>          
+			            	<td class="rd_wlab"><h:outputText value="Departement :" /> </td> 
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.departement}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+			            		<p:inputText value="#{clientMB.selectedClientOrg.departement}" style="font-weight:bold" rendered="#{clientMB.activation}"/>
+			            	</td>
+			
+			            	<td class="rd_wlab"><h:outputText value="Service :" /></td>  
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.service}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>  
+			            		<p:inputText value="#{clientMB.selectedClientOrg.service}" style="font-weight:bold" rendered="#{clientMB.activation}"/>
+			            	</td>
+			  			</tr>
+			  			<tr>  			
+			  				<td class="rd_wlab"><h:outputText value="Civilité :" />  </td>
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.civilite}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+			            		<p:selectOneMenu id="civiliteOrg" value="#{clientMB.selectedClientOrg.civilite}" rendered="#{clientMB.activation}">  
+						            <f:selectItem itemLabel="#{clientMB.selectedClientOrg.civilite}" itemValue="#{clientMB.selectedClientOrg.civilite}" />  
+						            <f:selectItem itemLabel="Mlle" itemValue="melle" />  
+						            <f:selectItem itemLabel="Mme" itemValue="mme" />  
+						            <f:selectItem itemLabel="Mr" itemValue="mr" />  
+				        		</p:selectOneMenu>
+			            	</td>
+			            	<td class="rd_wlab"><h:outputText value="" />  </td>
+			            	<td class="rd_winp">
+			            		<h:outputText value="" style="font-weight:bold"/>
+			            	</td> 
+			            	
+			            </tr>
+			            <tr>
+			            	<td class="rd_wlab"><h:outputText value="Nom Responsable :" />  </td>
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.nomRep}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/> 
+			            		<p:inputText value="#{clientMB.selectedClientOrg.nomRep}" style="font-weight:bold" rendered="#{clientMB.activation}"/>
+			            	</td> 
+			            	
+			            	<td class="rd_wlab"><h:outputText value="Prenom Responsable :" />  </td>
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.prenomRep}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/> 
+			            		<p:inputText value="#{clientMB.selectedClientOrg.prenomRep}" style="font-weight:bold" rendered="#{clientMB.activation}"/>
+			            	</td>   			  	
+			  			</tr>
+			  			 <tr>
+			            	<td class="rd_wlab"><h:outputText value="Mobile :" /></td>  
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.mobile}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>  		            		
+			            		<p:inputMask id="mobile" value="#{clientMB.selectedClientOrg.mobile}" style="font-weight:bold;" mask="99 99 99 99 99" required="true" requiredMessage="Ce champs est obligatoire" rendered="#{clientMB.activation}" >
+					     			<p:ajax event="blur" update="mobileMsg" />
+					     		</p:inputMask>
+					     		<p:message id="mobileMsg" for="mobile" display="icon"/> 		            		
+			            	</td>
+			  			
+			            	<td class="rd_wlab"><h:outputText value="Tel fix :" />  </td>
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.telfix}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+								<p:inputMask id="telfix" value="#{clientMB.selectedClientOrg.telfix}" style="font-weight:bold;" mask="99 99 99 99 99" required="true" requiredMessage="Ce champs est obligatoire" rendered="#{clientMB.activation}" >
+					     			<p:ajax event="blur" update="telfixMsg" />
+					     		</p:inputMask>
+					     		<p:message id="telfixMsg" for="telfix" display="icon"/> 		            		
+			            	</td>   			  	
+						</tr> 
+					  	<tr>
+			            	<td class="rd_wlab"><h:outputText value="Adresse :" />  </td>
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.adresse.rue}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+			            		<p:inputText value="#{clientMB.selectedClientOrg.adresse.rue}" style="font-weight:bold" rendered="#{clientMB.activation}"/>
+			            	</td>
+			  			
+			            	<td class="rd_wlab"><h:outputText value="Ville:" />  </td>
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.adresse.ville}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+			            		<p:inputText value="#{clientMB.selectedClientOrg.adresse.ville}" style="font-weight:bold" rendered="#{clientMB.activation}"/>
+			            	</td>
+			            </tr>
+			            <tr>
+			            	<td class="rd_wlab"><h:outputText value="Code Postal :" />  </td>
+			            	<td class="rd_winp">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.adresse.cp}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>		            		
+			            		<p:inputMask id="cp" value="#{clientMB.selectedClientOrg.adresse.cp}" style="font-weight:bold;" mask="99999" required="true" requiredMessage="Ce champs est obligatoire" rendered="#{clientMB.activation}" >
+					     			<p:ajax event="blur" update="cpMsg" />
+					     		</p:inputMask>
+					     		<p:message id="cpMsg" for="cp" display="icon"/> 
+			            	</td>
+			  			
+			            	<td class="rd_wlab"><h:outputText value="Mail" />  </td>
+			            	<td class="rd_winp" height="Auto">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.mail}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+			            		<p:inputText rows="6" cols="33" id="mailOrg" value="#{clientMB.selectedClientOrg.mail}" required="true" style="font-weight:bold" rendered="#{clientMB.activation}"
+					     				label="email" requiredMessage="Address email est obligatoire"
+										validatorMessage="le format email est invalide">
+					     			<p:ajax event="blur" update="mailOrgMsg" />
+					     			<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					     		</p:inputText>
+					     		<p:message id="mailOrgMsg" for="mailOrg" display="icon"/>
+			            	</td>
+			            </tr>
+			            <tr>
+			            	<td class="rd_wlab"><h:outputText value="Commentaire:" />  </td>
+			            	<td class="rd_winp" height="Auto">
+			            		<h:outputText value="#{clientMB.selectedClientOrg.commentaire}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+			            		<p:inputTextarea rows="6" cols="33" value="#{clientMB.selectedClientOrg.commentaire}" style="font-weight:bold" rendered="#{clientMB.activation}" />
+			            	</td>
+			            </tr>
+			            </table>     
+			  	</p:outputPanel>
+			    </p:dialog> 
+		    	<!-- fin popup de details -->
+		 	
+		 	</p:outputPanel>	
+			<!-- fin search organisation -->     
+     
+	 		<br />
+	  
+              <!-- end edit area --> 
+            </div>
+          </div>
+          </h:form>
+        </div>
+      </div>
+      <!-- end content --> 
+    </div>
+  </div>
+  <!-- end shape --> 
+  <!-- end siteinfo -->
+
+</f:view>
+</h:body>
+</html>

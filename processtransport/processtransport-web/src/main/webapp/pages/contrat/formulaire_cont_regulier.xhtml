@@ -1,0 +1,289 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<div class="rd_jteleport">
+
+	<table id="monTable" style="border: none">
+		<tr style="border: none">
+			<td>			
+			<h:outputLabel value="Date de début: " /> <br />
+			<br /> <h:outputLabel value="Date de fin : " /></td>
+			<td><p:calendar value="#{contratMB.contrat.dateDebutContrat}"
+					locale="fr" showOn="button" navigator="true" id="frCal" /> <br />
+			<br /> <p:calendar value="#{contratMB.contrat.dateFinContrat}"
+					locale="fr" showOn="button" navigator="true" id="frCl" /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Passager: " /></td>
+			<td>
+				<p:selectOneMenu
+					value="#{contratMB.contrat.passager.idPassager}">
+					<f:selectItem itemLabel="-----" itemValue="0" />
+					<f:selectItems value="#{passagerMB.listPassager}" var="pass"
+						itemLabel="#{pass.nom} #{pass.prenom}"
+						itemValue="#{pass.idPassager}" />
+
+				</p:selectOneMenu> <!-- ajout nouveau passager --> <p:commandLink id="newClient"
+					onclick="NewPassager.show();">
+					<h:outputText value="nouveau passager" />
+				</p:commandLink> <br /> <p:dialog id="newPassDialog"
+					header="Ajout nouveau	Passager" widgetVar="NewPassager"
+					modal="false" height="390" width="650" resizable="false">
+
+					<p:commandLink id="ajoutNewClient"
+						actionListener="#{passagerMB.afficher_popup}">
+						<img width="16" height="16" alt=""
+							src="../../picto/application_osx.png"></img>
+						<h:outputText value="Nouveau passager" />
+					</p:commandLink>
+
+					<p:panelGrid rendred="#{contratMB.etat_popup}">
+
+						<div id="rd_submenu2" class="rd_kb" style="right: 5px;">
+							<ul>
+								<li><p:commandLink id="fermer" update="newPassDialog"
+										action="newPassDialog.hide(),formulaireNewP.hide()">
+										<img width="16" height="16" alt=""
+											src="../../picto/application_osx.png"></img>
+										<h:outputText value="Fermer" />
+									</p:commandLink>
+								</li>
+
+								<li><p:commandLink id="sauvegarder" update="newPassDialog"
+										actionListener="#{passagerMB.addPassager}" ajax="false">
+										<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+										<h:outputText value="Sauvegarder" />
+									</p:commandLink>
+								</li>
+							</ul>
+						</div>
+
+						<br />
+						<br />
+						<br />
+						<!-- include de formulaire d ajout de passager -->
+						<ui:include 
+									src="../passager/formulaire_ajout_passager_popup.xhtml">
+						</ui:include>
+
+					</p:panelGrid>
+
+				</p:dialog> <!-- fin ajout  -->
+			</td>
+			<td>
+				<h:outputLabel value="Groupe: " />
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Adresse départ : " /></td>
+			<td>
+				<!-- adresse depart + CP + ville --> <!-- adresse --> <p:inputText
+					id="adressedepart"
+					value="#{contratMB.detailcontrat.adresseDepart.rue}">
+					<p:ajax event="blur" update="adressedepartMsg" />
+				</p:inputText> <p:message id="adressedepartMsg" for="adressedepart" display="icon" />
+			</td>
+			<!-- code postal -->
+			<td><h:outputLabel value="Code Postale : " /> <p:inputText
+					id="cpDep" value="#{contratMB.detailcontrat.adresseDepart.cp}">
+					<p:ajax event="blur" update="cpDepMsg" />
+				</p:inputText> <p:message id="cpDepMsg" for="cpDep" display="icon" /></td>
+
+			<!-- ville -->
+			<td><h:outputLabel value="Ville : " /> <p:inputText
+					id="villeDep"
+					value="#{contratMB.detailcontrat.adresseDepart.ville}">
+					<p:ajax event="blur" update="villeDepMsg" />
+				</p:inputText> <p:message id="villeDepMsg" for="villeDep" display="icon" /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value=" Précision  : " /></td>
+			<td><p:inputText id="precisiondepart"
+					value="#{contratMB.detailcontrat.adresseDepart.precision}">
+					<p:ajax event="blur" update="precisiondepartMsg" />
+				</p:inputText> <p:message id="precisiondepartMsg" for="precisiondepart"
+					display="icon" /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Adresse Arrivée  : " /></td>
+			<td>
+				<!-- adresse depart + CP + ville --> <!-- adresse --> <p:inputText
+					id="adresseArive"
+					value="#{contratMB.detailcontrat.adresseArrivee.rue}">
+					<p:ajax event="blur" update="adresseAriveMsg" />
+				</p:inputText> <p:message id="adresseAriveMsg" for="adresseArive" display="icon" />
+			</td>
+			<!-- code postal -->
+			<td><h:outputLabel value="Code Postale : " /> <p:inputText
+					id="cpArv" value="#{contratMB.detailcontrat.adresseArrivee.cp}">
+					<p:ajax event="blur" update="cpArvMsg" />
+				</p:inputText> <p:message id="cpArvMsg" for="cpArv" display="icon" /></td>
+
+			<!-- ville -->
+			<td><h:outputLabel value="Ville : " /> <p:inputText
+					id="villeArv"
+					value="#{contratMB.detailcontrat.adresseArrivee.ville}">
+					<p:ajax event="blur" update="villeArvMsg" />
+				</p:inputText> <p:message id="villeArvMsg" for="villeArv" display="icon" /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value=" Précision  : " /></td>
+			<td><p:inputText id="precisionarriv"
+					value="#{contratMB.detailcontrat.adresseArrivee.precision}">
+					<p:ajax event="blur" update="precisionarrivMsg" />
+				</p:inputText> <p:message id="precisionarrivMsg" for="precisionarriv"
+					display="icon" /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Durée : " /></td>
+			<td><h:selectOneMenu id="duree"
+					value="#{contratMB.detailcontrat.duree}">
+					<f:selectItem itemLabel="15" itemValue="15" />
+					<f:selectItem itemLabel="30" itemValue="30" />
+					<f:selectItem itemLabel="45" itemValue="45" />
+					<f:selectItem itemLabel="60" itemValue="60" />
+					<f:selectItem itemLabel="90" itemValue="90" />
+				</h:selectOneMenu> Min</td>
+			<td><h:outputLabel value="Bagages : " /> <h:selectOneMenu
+					id="bagage" value="#{contratMB.contrat.bagages}">
+					<f:selectItem itemLabel="0" itemValue="0" />
+					<f:selectItem itemLabel="1" itemValue="1" />
+					<f:selectItem itemLabel="2" itemValue="2" />
+					<f:selectItem itemLabel="3" itemValue="3" />
+					<f:selectItem itemLabel="4" itemValue="4" />
+					<f:selectItem itemLabel="5" itemValue="5" />
+				</h:selectOneMenu></td>
+			<td><h:outputLabel value="Véhicule Adapté : " /> <h:selectOneRadio
+					id="vehicule" value="#{contratMB.contrat.vehiculeAdapte}">
+					<f:selectItem itemLabel="Oui" itemValue="true" />
+					<f:selectItem itemLabel="Non" itemValue="false" />
+				</h:selectOneRadio></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value=" Qui paye  : " /></td>
+			<td><h:selectOneRadio id="quipaye"
+					value="#{contratMB.contrat.payeur}">
+					<f:selectItem itemLabel="Passager" itemValue="1" />
+					<f:selectItem itemLabel="Client" itemValue="2" />
+				</h:selectOneRadio></td>
+
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Tarif HT :" /></td>
+			<td><p:inputText id="tarifht"
+					value="#{contratMB.detailcontrat.tarifTtc}" /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel for="tarifttc" value="Tarif TTC :" /></td>
+			<td><p:inputText id="tarifttc"
+					value="#{contratMB.detailcontrat.tarifTtc}" /></td>
+		</tr>
+	</table>
+	<h3>Commentaire</h3>
+	<p:inputTextarea value="#{contratMB.contrat.commentaire}" rows="6"
+		cols="33" />
+</div>
+<br />
+<br />
+
+
+
+
+<table class="rd_tableform rd_tableform_2c" id="planing">
+	<tr>
+		<td class="rd_wlab"></td>
+		<td class="rd_winp"><label>Lundi</label></td>
+		<td class="rd_table_vsep rd_wlab"><label>Aller:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.lunA}" id="a"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="a"
+				value="HH:MM"></p:watermark></td>
+		<td class="rd_table_vsep rd_wlab"><label>Retour:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.lunR}" id="b"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="b"
+				value="HH:MM"></p:watermark></td>
+	</tr>
+	<tr>
+		<td class="rd_wlab"></td>
+		<td class="rd_winp"><label>Mardi</label></td>
+		<td class="rd_table_vsep rd_wlab"><label>Aller:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.marA}" id="c"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="c"
+				value="HH:MM"></p:watermark></td>
+		<td class="rd_table_vsep rd_wlab"><label>Retour:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.marR}" id="d"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="d"
+				value="HH:MM"></p:watermark></td>
+	</tr>
+	<tr>
+		<td class="rd_wlab"></td>
+		<td class="rd_winp"><label>Mercredi</label></td>
+		<td class="rd_table_vsep rd_wlab"><label>Aller:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.merA}" id="e"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="e"
+				value="HH:MM"></p:watermark></td>
+		<td class="rd_table_vsep rd_wlab"><label>Retour:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.merR}" id="f"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="f"
+				value="HH:MM"></p:watermark></td>
+	</tr>
+	<tr>
+		<td class="rd_wlab"></td>
+		<td class="rd_winp"><label>Jeudi</label></td>
+		<td class="rd_table_vsep rd_wlab"><label>Aller:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.jeuA}" id="j"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="j"
+				value="HH:MM"></p:watermark></td>
+		<td class="rd_table_vsep rd_wlab"><label>Retour:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.jeuR}" id="h"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="h"
+				value="HH:MM"></p:watermark></td>
+	</tr>
+	<tr>
+		<td class="rd_wlab"></td>
+		<td class="rd_winp"><label>Vendredi</label></td>
+		<td class="rd_table_vsep rd_wlab"><label>Aller:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.venA}" id="i"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="i"
+				value="HH:MM"></p:watermark></td>
+		<td class="rd_table_vsep rd_wlab"><label>Retour:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.venR}" id="k"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="k"
+				value="HH:MM"></p:watermark></td>
+	</tr>
+	<tr>
+		<td class="rd_wlab"></td>
+		<td class="rd_winp"><label>Samedi</label></td>
+		<td class="rd_table_vsep rd_wlab"><label>Aller:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.samA}" id="l"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="l"
+				value="HH:MM"></p:watermark></td>
+		<td class="rd_table_vsep rd_wlab"><label>Retour:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.samA}" id="m"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="m"
+				value="HH:MM"></p:watermark></td>
+	</tr>
+	<tr>
+		<td class="rd_wlab"></td>
+		<td class="rd_winp"><label>Dimanche</label></td>
+		<td class="rd_table_vsep rd_wlab"><label>Aller:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.dimA}" id="n"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="n"
+				value="HH:MM"></p:watermark></td>
+		<td class="rd_table_vsep rd_wlab"><label>Retour:</label></td>
+		<td class="rd_winp"><p:calendar value="#{contratMB.planningSemaine.dimR}" id="o"
+				pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark for="o"
+				value="HH:MM"></p:watermark></td>
+	</tr>
+</table>
+
+
+
+<div>
+	<p:commandButton id="ajout_contrat_reg" value=" Ajouter "
+		action="#{contratMB.addContrat}" ajax="false" />
+</div>
+</html>

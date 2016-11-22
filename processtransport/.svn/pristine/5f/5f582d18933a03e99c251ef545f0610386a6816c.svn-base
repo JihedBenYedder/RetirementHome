@@ -1,0 +1,186 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<div class="rd_jteleport">
+	<table id="monTable" style="border: none">
+		<tr>
+			<!-- 			<td><h:selectBooleanCheckbox value="" /></td> -->
+			<td><h:outputText value="  Aller simple: " /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel for="datealler" value="Aller: " /> <br /> <br />
+				<h:outputLabel for="datefin" value="Retour: "
+					rendered="#{contratMB.etatAffichage}" /></td>
+			<td><p:calendar
+					value="#{contratMB.detailcontrat.dateDebutOcass}" locale="fr"
+					showOn="button" navigator="true" id="datealler" size="15" /> <br />
+				<br /> <p:calendar value="#{contratMB.detailcontrat.dateFinOcass}"
+					locale="fr" showOn="button" navigator="true" id="dateretour"
+					size="15" rendered="#{contratMB.etatAffichage}" /></td>
+			<td><p:calendar
+					value="#{contratMB.detailcontrat.heureAllerOcass}"
+					id="heureDepAllOcc" pattern="HH:mm" size="5" timeOnly="true" /> <p:watermark
+					for="heureDepAllOcc" value="HH:MM"></p:watermark> <br /> <br /> <p:calendar
+					value="#{contratMB.detailcontrat.heureRetourOcass}"
+					id="heureDepRetOcc" pattern="HH:mm" size="5" timeOnly="true"
+					rendered="#{contratMB.etatAffichage}" /> <p:watermark
+					for="heureDepRetOcc" value="HH:MM"></p:watermark></td>
+		</tr>
+
+		<tr>
+			<td><h:outputLabel value="Passager: " /></td>
+			<td><p:selectOneMenu
+					value="#{contratMB.contrat.passager.idPassager}">
+					<f:selectItem itemLabel="-----" itemValue="0" />
+					<f:selectItems value="#{passagerMB.listPassager}" var="pass"
+						itemLabel="#{pass.nom}" itemValue="#{pass.idPassager}" />
+
+				</p:selectOneMenu></td>
+		</tr>
+
+		<tr>
+			<td><h:outputLabel value="Départ: " /> <br /> <br /> <br />
+				<h:outputLabel value="Précision: " /></td>
+			<td><p:inputText id="departocas"
+					value="#{contratMB.detailcontrat.adresseDepart.precision}">
+					<p:ajax event="blur" update="departocasMsg" />
+				</p:inputText> <p:message id="departocasMsg" for="departocas" display="icon" /> <br />
+				<p:inputText id="precisisonocas"
+					value="#{contratMB.detailcontrat.adresseDepart.rue}">
+					<p:ajax event="blur" update="precisisonocasMsg" />
+				</p:inputText> <p:message id="precisisonocasMsg" for="precisisonocas"
+					display="icon" /></td>
+			<td><h:outputLabel value="Code postal: " /></td>
+			<td><p:inputText id="cptocas"
+					value="#{contratMB.detailcontrat.adresseDepart.cp}" size="5">
+					<p:ajax event="blur" update="cptocasMsg" />
+				</p:inputText> <p:message id="cptocasMsg" for="cptocas" display="icon" /></td>
+			<td><h:outputLabel value="Ville: " /></td>
+			<td><p:inputText id="villeocas"
+					value="#{contratMB.detailcontrat.adresseDepart.ville}" size="5">
+					<p:ajax event="blur" update="villeocasMsg" />
+				</p:inputText> <p:message id="villeocasMsg" for="villeocas" display="icon" /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Arrivée:  " /></td>
+			<td><p:inputText id="arriveocas"
+					value="#{contratMB.detailcontrat.adresseArrivee.rue}">
+					<p:ajax event="blur" update="arriveocasMsg" />
+				</p:inputText> <p:message id="arriveocasMsg" for="arriveocas" display="icon" /></td>
+			<td><h:outputLabel value="Code postal: " /></td>
+			<td><p:inputText id="cptocasarriv"
+					value="#{contratMB.detailcontrat.adresseArrivee.cp}" size="5">
+					<p:ajax event="blur" update="cptocasarrivMsg" />
+				</p:inputText> <p:message id="cptocasarrivMsg" for="cptocasarriv" display="icon" />
+			</td>
+			<td><h:outputLabel value="Ville: " /></td>
+
+			<td><p:inputText id="villeocasarriv"
+					value="#{contratMB.detailcontrat.adresseArrivee.ville}" size="5">
+					<p:ajax event="blur" update="villeocasarrivMsg" />
+				</p:inputText> <p:message id="villeocasarrivMsg" for="villeocasarriv"
+					display="icon" /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Précision : " /></td>
+			<td>
+				<!-- adresse depart + CP + ville --> <!-- adresse --> <p:inputText
+					id="precisionocca"
+					value="#{contratMB.detailcontrat.adresseArrivee.precision}">
+					<p:ajax event="blur" update="precisionoccaMsg" />
+				</p:inputText> <p:message id="precisionoccaMsg" for="precisionocca" display="icon" />
+
+			</td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Durée : " /></td>
+			<td><p:selectOneMenu id="dureeocas"
+					value="#{contratMB.detailcontrat.duree}">
+					<f:selectItem itemLabel="15" itemValue="15" />
+					<f:selectItem itemLabel="30" itemValue="30" />
+					<f:selectItem itemLabel="45" itemValue="45" />
+					<f:selectItem itemLabel="60" itemValue="60" />
+					<f:selectItem itemLabel="90" itemValue="90" />
+
+				</p:selectOneMenu> Min</td>
+			<td><h:outputLabel value="Bagages : " /></td>
+			<td><p:selectOneMenu id="bagageocas"
+					value="#{contratMB.contrat.bagages}">
+					<f:selectItem itemLabel="0" itemValue="0" />
+					<f:selectItem itemLabel="1" itemValue="1" />
+					<f:selectItem itemLabel="2" itemValue="2" />
+					<f:selectItem itemLabel="3" itemValue="3" />
+					<f:selectItem itemLabel="4" itemValue="4" />
+					<f:selectItem itemLabel="5" itemValue="5" />
+				</p:selectOneMenu></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel value="Véhicule" /> <br /> <h:outputLabel
+					value=" Adapté : " /></td>
+			<td><h:selectOneRadio id="vehiculeocas"
+					value="#{contratMB.contrat.vehiculeAdapte}">
+					<f:selectItem itemLabel="Oui" itemValue="true" />
+					<f:selectItem itemLabel="Non" itemValue="false" />
+				</h:selectOneRadio></td>
+		</tr>
+	</table>
+	<div id="passagers" style="margin-left: 5px">
+		Passagers : <label>Adultes</label>
+		<p:selectOneMenu value="#{contratMB.contrat.nombreAdultes}">
+			<f:selectItem itemLabel=" 0" itemValue="0" />
+			<f:selectItem itemLabel=" 1" itemValue="1" />
+			<f:selectItem itemLabel=" 2" itemValue="2" />
+			<f:selectItem itemLabel=" 3" itemValue="3" />
+			<f:selectItem itemLabel=" 4" itemValue="3" />
+			<f:selectItem itemLabel=" 5" itemValue="3" />
+		</p:selectOneMenu>
+		<label>Enfants </label>
+		<p:selectOneMenu value="#{contratMB.contrat.nombreEnfants}">
+			<f:selectItem itemLabel=" 0" itemValue="0" />
+			<f:selectItem itemLabel=" 1" itemValue="1" />
+			<f:selectItem itemLabel=" 2" itemValue="2" />
+			<f:selectItem itemLabel=" 3" itemValue="3" />
+			<f:selectItem itemLabel=" 4" itemValue="3" />
+			<f:selectItem itemLabel=" 5" itemValue="3" />
+
+		</p:selectOneMenu>
+		<label>Bébé </label>
+		<p:selectOneMenu value="#{contratMB.contrat.nombreBebe}">
+			<f:selectItem itemLabel=" 0" itemValue="0" />
+			<f:selectItem itemLabel=" 1" itemValue="1" />
+			<f:selectItem itemLabel=" 2" itemValue="2" />
+			<f:selectItem itemLabel=" 3" itemValue="3" />
+			<f:selectItem itemLabel=" 4" itemValue="3" />
+			<f:selectItem itemLabel=" 5" itemValue="3" />
+
+		</p:selectOneMenu>
+	</div>
+	<br /> <br />
+	<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="15">
+		<h:outputText value=" Qui paye  : " />
+
+		<p:selectOneRadio id="quipayeocas" value="#{contratMB.contrat.payeur}"
+			style="display: inline; margin:5px">
+			<f:selectItem itemLabel="Passager" itemValue="1" />
+			<f:selectItem itemLabel="Client" itemValue="2" />
+		</p:selectOneRadio>
+	</h:panelGrid>
+	<br /> <br />
+	<div>
+		<h:outputLabel value="Tarif HT :" />
+		<p:inputText id="tarifhtocas"
+			value="#{contratMB.detailcontrat.tarifTtc}" />
+		<!--	<h:outputLabel value="Tarif TTC :"/> 				 
+       					 		<p:inputText id="tarifttcocas" value="" />	  -->
+	</div>
+	<h3>Commentaire</h3>
+	<p:inputTextarea value="#{contratMB.contrat.commentaire}" rows="6"
+		cols="33" />
+</div>
+
+<br />
+<br />
+</html>

@@ -1,0 +1,385 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+<h:head>
+	<title>ID PROCESS - search des Contrats</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+
+</h:head>
+
+<h:body>
+	<f:view>
+		<!-- end ghost -->
+		<!-- shape -->
+		<div id="rd_shape">
+			<div id="rd_shape_l1">
+				<div id="rd_shape_l2">
+					<!-- brand -->
+					<div id="rd_brand">
+						<div id="rd_brand_l1">
+							<img src="../../img/logo_mi.png" width="90" height="85"
+								alt="DGAC" />
+							<div id="rd_brand_00">
+								<h1>Process-Transport</h1>
+								Solution générique de gestion d'entreprise de transport.
+							</div>
+						</div>
+					</div>
+					<!-- end brand -->
+					<!-- content -->
+					<div id="rd_content">
+						<h:form id="form">
+							<div id="rd_submenu" class="rd_kb">
+								<ul>
+									<li><a href="/processtransport-web/pages/index.html">
+											<img width="16" height="16" alt=""
+											src="../../picto/application_osx.png"></img> Retour Accueill
+									</a></li>
+									<li><a
+										href="/processtransport-web/pages/contrat/ajout-contrat.html">
+											<img width="16" height="16" alt="" src="../../picto/add.png"></img>
+											Ajouter un contrat
+									</a></li>
+									<h:outputText id="display"></h:outputText>
+
+								</ul>
+							</div>
+							<h2>Gestion des Contrats</h2>
+							<div id="rd_content_l1">
+								<div id="rd_content_l2">
+									<h3 class="rd_first">Recherche contrat</h3>
+									<!-- edit area -->
+
+									<!-- debut div search Contrat -->
+									<table class="rd_tableform rd_tableform_2c">
+
+										<tr>
+											<td class="rd_wlab"><h:outputLabel value="Client: " />
+											</td>
+											<td class="rd_winp"><p:inputText id="client"
+													value="#{contratMB.clientRecherche}">
+													<p:ajax event="blur" update="organisationMsg" />
+												</p:inputText> <p:message id="organisationMsg" for="client" display="icon" />
+											</td>
+
+											<td class="rd_table_vsep rd_wlab"><h:outputLabel
+													value=" Passager : " /></td>
+											<td class="rd_winp"><p:inputText id="passager"
+													value="#{contratMB.contrat.passager.nom}">
+													<p:ajax event="blur" update="passager" />
+												</p:inputText> <p:message id="passagermsg" for="passager" display="icon" />
+											</td>
+
+										</tr>
+										<tr>
+											<td class="rd_wlab"><h:outputLabel
+													value="Type de Contrat: " /></td>
+											<td class="rd_winp"><p:selectOneMenu
+													value="#{contratMB.contrat.typeContrat}">
+													<f:selectItem itemLabel="regulier" itemValue="regulier" />
+													<f:selectItem itemLabel="occasionnel"
+														itemValue="occasionnel" />
+												</p:selectOneMenu></td>
+
+											<td class="rd_table_vsep rd_wlab"></td>
+											<td class="rd_winp"></td>
+										</tr>
+									</table>
+
+									<br />
+									<div class="rd_kb rd_kb_right">
+										<ul>
+											<li><p:commandLink id="recherchecContrat"
+													update="listContrat"
+													action="#{contratMB.chercheContratParTypeOuPassager}"
+													ajax="false">
+													<img width="16" height="16" alt=""
+														src="../../picto/magnifier.png"></img>
+													<h:outputText value="Recherche" />
+												</p:commandLink></li>
+										</ul>
+									</div>
+									<br />
+
+
+									<div class="rd_jteleport">
+
+										<p:dataTable id="listContrat" var="contrat" value="#{contratMB.listContrat}" rendered="#{contratMB.tableauContrat}" 
+												paginator="true" rows="6"
+												paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+							                 	rowsPerPageTemplate="6,10,15">
+							                 								                 	 
+
+											<p:column headerText="Client" sortBy="#{contrat.passager.client.nomOrg}" style="width:15%">
+												<h:outputText value="#{contrat.passager.client.nomOrg}" />
+											</p:column>
+											
+											<p:column headerText="Passager" sortBy="#{contrat.passager.nom}" style="width:15%">
+												<h:outputText value="#{contrat.passager.nom}" />
+											</p:column>
+											
+											<p:column headerText="Type" sortBy="#{contrat.typeContrat}" style="width:14%">
+												<h:outputText value="#{contrat.typeContrat}" />
+											</p:column>
+											
+											<p:column headerText="Date début" sortBy="#{contrat.dateDebutContrat}" style="width:26%">
+												
+												0: <h:outputText value="#{contrat.dateDebutContrat}" id="date0" />											
+												
+													<br />
+												
+												1: <c:set var="string1" value="#{contrat.dateDebutContrat}"/>
+												<c:set var="string2" value="${fn:substring(string1, 0, 10)}" />
+												<h:outputText value="#{string2}" />																									
+												    
+												    <br />
+												    
+												2: <h:outputText value="#{contrat.dateDebutContrat}" id="date">
+													<f:convertDateTime dateStyle="full" timeZone="EST" type="date" />
+												</h:outputText>
+												    
+												    <br />
+												    
+												3: <h:outputText value="#{contrat.dateDebutContrat.time}">	
+													<f:convertDateTime pattern="dd-MM-yyyy" />
+												</h:outputText>	
+																					
+											</p:column>
+											
+											<p:column headerText="Date fin" sortBy="#{contrat.dateFinContrat}" style="width:15%">	
+												<c:set var="string11" value="#{contrat.dateFinContrat}"/>
+												<c:set var="string22" value="${fn:substring(string11, 0, 10)}" />
+												<h:outputText value="#{string22}" />																																		
+												   
+												   <br />
+												   
+												<h:outputText value="#{contrat.dateFinContrat.time}">
+													<f:convertDateTime pattern="dd-MM-yyyy" />
+												</h:outputText>
+												
+											</p:column>
+
+											<p:column headerText="Tarif">													
+												<p:dataList value="#{contrat.detailContrats}" var="detailcontrat">
+													<h:outputText value="#{detailcontrat.tarifTtc}"/>
+												</p:dataList>								
+											</p:column>
+
+											<p:column headerText="Etat">
+												<h:outputText value="#{contrat.etatContrat}" />
+											</p:column>
+											
+											 <p:column headerText="Détails" style="width:6%">  
+									                <p:commandButton id="selectButton" update=":form:display" oncomplete="contratDialog.show()" icon="ui-icon-search" title="View">  
+									                <f:setPropertyActionListener value="#{contrat}" target="#{contratMB.selectedContrat}" />  
+									            </p:commandButton>  
+									        </p:column>
+									        
+									        <p:outputPanel id="display"></p:outputPanel>
+																					
+										</p:dataTable>
+										
+										
+										
+										<!--  Popup des details des contrats --> 
+			 	
+									   	<p:dialog header="Contrat Detail" widgetVar="contratDialog" resizable="false" id="contratDlg"  
+									                showEffect="fade" hideEffect="explode" modal="false" width="750" height="400">  
+									  			  
+									  		<div id="rd_submenu2" class="rd_kb" style="right: 5px;">
+													<ul>
+												        <li>
+												        	<p:commandLink id="retourAccueill" update="contratDlg" action="contratDlg.hide()" >  
+										              			<img width="16" height="16" alt="" src="../../picto/application_osx.png"></img>
+										        				<h:outputText value="Fermer" />  
+										    				</p:commandLink> 
+										    			</li>
+														<li>
+														<p:outputPanel id="boutton">
+															<!-- bouton modifier : active les champs -->
+															<p:commandLink id="modifContrat" update="displayContrat,boutton" action="#{contratMB.activerChamps}" ajax="true" rendered="#{contratMB.desactivation}">  
+										              			<img width="16" height="16" alt="" src="../../picto/add.png"></img>
+										        				<h:outputText value="Modifier Contrat" />  
+										    				</p:commandLink> 
+										    				<!-- bouton sauvegarder : desactive les champs -->
+										    				<p:commandLink id="savegarderCOrg" update="displayContrat,boutton" action="#{contratMB.desactiverChamps}" ajax="true" rendered="#{contratMB.activation}">  
+										              			<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+										        				<h:outputText value="Sauvegarder Contrat" />  
+										    				</p:commandLink>
+										    			</p:outputPanel>
+										    			</li>
+													</ul>
+											</div>
+									  		<p:outputPanel id="displayContrat">
+									  		<br /><br /><br /><br />
+
+												
+												<p:outputPanel rendered="#{contratMB.tableauContrat}">
+																			                 	
+												<table id="monTable" style="border: none">
+													<tr style="border: none">
+														<td>
+															<h:outputLabel value="Date de début: " /> 
+															<br /><br /> 
+															<h:outputLabel value="Date de fin : " />
+														</td>
+														<td>
+															<h:outputText value="#{contratMB.selectedContrat.dateDebutContrat.time}" style="font-weight:bold" rendered="#{contratMB.desactivation}">
+																<f:convertDateTime pattern="dd-MM-yyyy" />
+															</h:outputText>	
+															<p:calendar value="#{contratMB.selectedContrat.dateDebutContrat}" locale="fr" showOn="button" navigator="true" id="frCal1" rendered="#{contratMB.activation}" /> 
+															<br /><br /> 
+															<h:outputText value="#{contratMB.selectedContrat.dateFinContrat.time}" style="font-weight:bold" rendered="#{contratMB.desactivation}">
+																<f:convertDateTime pattern="dd-MM-yyyy" />
+															</h:outputText>
+															<p:calendar value="#{contratMB.selectedContrat.dateFinContrat}" locale="fr" showOn="button" navigator="true" id="frCal2" rendered="#{contratMB.activation}" />
+														</td>
+													</tr>
+													
+													<tr>
+														<td><h:outputLabel value="Passager: " /></td>
+														<td>
+															<p:selectOneMenu
+																value="#{contratMB.selectedContrat.passager.idPassager}">
+																<f:selectItem itemLabel="#{contratMB.selectedContrat.passager.nom} #{contratMB.selectedContrat.passager.prenom}" itemValue="#{contratMB.selectedContrat.passager.idPassager}" />
+																<f:selectItem itemLabel=" selectionner " itemValue="0" />
+																<f:selectItems value="#{passagerMB.listPassager}" var="pass"
+																	itemLabel="#{pass.nom} #{pass.prenom}"
+																	itemValue="#{pass.idPassager}" />
+											
+															</p:selectOneMenu> 
+														</td>
+														<td>
+															<h:outputLabel value="Groupe: " />
+															<br /><br />
+														</td>
+													</tr>
+													
+<!-- 													on a un probleme pour lire d une liste des details_contrat  -->
+												 	
+												 													
+													<tr>
+ 														<td><h:outputLabel value="Adresse départ : " /></td> 
+ 														<td> 
+ 														<!-- adresse depart + CP + ville adresse -->
+ 														<p:dataList value="#{contratMB.selectedContrat.detailContrats}" var="detailcontrat"> 															
+																<h:outputText value="#{detailcontrat.adresseDepart.rue} " style="font-weight:bold" rendered="#{contratMB.desactivation}" />
+																<p:inputText id="adressedepart" value="#{detailcontrat.adresseDepart.rue}" rendered="#{contratMB.activation}"> 
+																	<p:ajax event="blur" update="adressedepartMsg" /> 
+																</p:inputText> 
+																<p:message id="adressedepartMsg" for="adressedepart" display="icon" />  															
+ 														</p:dataList>
+ 														</td> 
+ 														<!-- code postal -->
+ 														<td><h:outputLabel value="Code Postal : " /> 
+ 														  <p:dataList value="#{contratMB.selectedContrat.detailContrats}" var="detailcontrat"> 														
+	 															<h:outputText value="#{detailcontrat.adresseDepart.cp}" style="font-weight:bold" rendered="#{contratMB.desactivation}" />
+																<p:inputText id="cpDep" value="#{detailcontrat.adresseDepart.cp}" rendered="#{contratMB.activation}"> 																		
+	 																<p:ajax event="blur" update="cpDepMsg" /> 
+	 															</p:inputText> 
+	 															<p:message id="cpDepMsg" for="cpDep" display="icon" />
+ 														  </p:dataList> 															
+ 														</td> 
+														
+ 														<!-- ville --> 
+ 														<td><h:outputLabel value="Ville : " /> 
+ 															<p:dataList value="#{contratMB.selectedContrat.detailContrats}" var="detailcontrat">
+ 																<h:outputText value="#{detailcontrat.adresseDepart.ville}" style="font-weight:bold" rendered="#{contratMB.desactivation}" />
+																<p:inputText id="villeDep" value="#{detailcontrat.adresseDepart.ville}" rendered="#{contratMB.activation}">
+	 																<p:ajax event="blur" update="villeDepMsg" /> 
+	 															</p:inputText> 
+	 															<p:message id="villeDepMsg" for="villeDep" display="icon" />
+	 														</p:dataList> 
+	 													</td>
+ 													</tr> 
+ 														<tr> 
+ 															<td><h:outputLabel value=" Précision  : " /></td> 
+ 															<td>
+ 																<p:dataList value="#{contratMB.selectedContrat.detailContrats}" var="detailcontrat">
+ 																<h:outputText value="#{detailcontrat.adresseDepart.precision}" style="font-weight:bold" rendered="#{contratMB.desactivation}" />
+																<p:inputText id="precisiondepart" value="#{detailcontrat.adresseDepart.precision}" rendered="#{contratMB.activation}"> 																
+ 																	<p:ajax event="blur" update="precisiondepartMsg" /> 
+ 																</p:inputText> 
+ 																<p:message id="precisiondepartMsg" for="precisiondepart" display="icon" />
+ 																</p:dataList>
+ 															</td> 
+ 																
+ 														</tr> 
+ 														<tr> 
+ 															<td><h:outputLabel value="Adresse Arrivée  : " /></td> 
+ 															<td> 
+ 																<!--  adresse depart + CP + ville adresse -->
+ 																<p:dataList value="#{contratMB.selectedContrat.detailContrats}" var="detailcontrat2">
+ 																<h:outputText value="#{detailcontrat2.adresseArrivee.rue}" style="font-weight:bold" rendered="#{contratMB.desactivation}" />
+																<p:inputText id="adresseArive" value="#{detailcontrat2.adresseArrivee.rue}" rendered="#{contratMB.activation}">
+ 																	<p:ajax event="blur" update="adresseAriveMsg" /> 
+ 																</p:inputText> 
+ 																<p:message id="adresseAriveMsg" for="adresseArive" display="icon" /> 
+ 																</p:dataList>
+ 															</td> 
+ 															<!-- code postal -->
+ 															<td><h:outputLabel value="Code Postale : " /> 
+ 																<p:dataList value="#{contratMB.selectedContrat.detailContrats}" var="detailcontrat2">
+ 																<h:outputText value="#{detailcontrat2.adresseArrivee.cp}" style="font-weight:bold" rendered="#{contratMB.desactivation}" />
+																<p:inputText id="cpArv" value="#{detailcontrat2.adresseArrivee.cp}" rendered="#{contratMB.activation}">
+ 																	<p:ajax event="blur" update="cpArvMsg" /> 
+ 																</p:inputText> 
+ 																<p:message id="cpArvMsg" for="cpArv" display="icon" />
+ 																</p:dataList>
+ 															</td> 
+												
+ 															<!-- ville -->
+ 															<td><h:outputLabel value="Ville : " /> 
+ 																<p:dataList value="#{contratMB.selectedContrat.detailContrats}" var="detailcontrat2">
+ 																<h:outputText value="#{detailcontrat2.adresseArrivee.ville}" style="font-weight:bold" rendered="#{contratMB.desactivation}" />
+																<p:inputText id="villeArv" value="#{detailcontrat2.adresseArrivee.ville}" rendered="#{contratMB.activation}">
+ 																	<p:ajax event="blur" update="villeArvMsg" /> 
+ 																</p:inputText> 
+ 																<p:message id="villeArvMsg" for="villeArv" display="icon" />
+ 																</p:dataList>
+ 															</td> 
+ 														</tr> 
+ 														<tr> 
+ 															<td><h:outputLabel value=" Précision  : " /></td> 
+ 															<td>
+ 																<p:dataList value="#{contratMB.selectedContrat.detailContrats}" var="detailcontrat">
+ 																<h:outputText value="#{detailcontrat.adresseArrivee.precision}" style="font-weight:bold" rendered="#{contratMB.desactivation}" />
+																<p:inputText id="precisionarriv" value="#{detailcontrat.adresseArrivee.precision}" rendered="#{contratMB.activation}">
+ 																	<p:ajax event="blur" update="precisionarrivMsg" /> 
+ 																</p:inputText> 
+ 																<p:message id="precisionarrivMsg" for="precisionarriv" display="icon" />
+ 																</p:dataList>
+ 															</td> 
+ 														</tr>													 
+														
+													
+												</table>										
+												</p:outputPanel>
+									  	</p:outputPanel>
+									    </p:dialog> 
+								    	<!-- fin popup de details -->
+										
+
+									</div>
+
+
+									<!-- fin div search contrat -->
+									<!-- end edit area -->
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+				<!-- end content -->
+			</div>
+		</div>
+		<!-- end shape -->
+		<!-- end siteinfo -->
+
+	</f:view>
+</h:body>
+</html>

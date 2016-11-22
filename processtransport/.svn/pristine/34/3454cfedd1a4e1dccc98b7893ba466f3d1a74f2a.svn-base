@@ -1,0 +1,157 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:ui="http://java.sun.com/jsf/facelets">
+     		
+		<table class="rd_tableform rd_tableform_2c">
+              
+               <tr>		     
+			     	<td class="rd_wlab">
+			     		<h:outputLabel value="Client: " />
+			     	</td>  
+			        <td class="rd_winp">
+				          <p:selectOneMenu  value="#{passagerMB.passager.client.id}">  
+	                        <f:selectItem itemLabel="-- Selectionner -- " />				                        				                    
+	                        <f:selectItems value="#{clientMB.list}" var="unite" itemLabel="#{unite.nomOrg}" itemValue="#{unite.id}" />					                        			     		  
+				          </p:selectOneMenu>
+			        </td>
+			       <td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel  value="Groupe: " />
+			     	</td>
+			     	<td class="rd_winp">
+			     	 <p:selectOneMenu value="#{passagerMB.passager.groupe.idGroupe}">
+	                        <f:selectItem itemLabel="-- Selectionner -- " />				                        				                    			     	   				                       				                        				                    
+				            <f:selectItems value="#{groupeMB.list}" var="unite" itemLabel="#{unite.nomGroup}" itemValue="#{unite.idGroupe}" />					                        			     		    
+				     </p:selectOneMenu> 
+		                   
+			     	</td> 	
+			     </tr>
+              
+		     	   <tr>		     
+			     	<td class="rd_wlab">
+			     		<h:outputLabel value="Civilité : " />
+			     	</td>  
+			        <td class="rd_winp">
+			        	<p:selectOneMenu id="civilitePassager" value="#{passagerMB.passager.civilite}">  
+			            <f:selectItem itemLabel="-- selectionner --" itemValue="" />  
+			            <f:selectItem itemLabel="Mlle" itemValue="melle" />  
+			            <f:selectItem itemLabel="Mme" itemValue="mme" />  
+			            <f:selectItem itemLabel="Mr" itemValue="mr" />  
+			        	</p:selectOneMenu>
+			        </td>
+			       <td class="rd_table_vsep rd_wlab">
+			     		
+			     	</td>
+			     	<td class="rd_winp">
+
+				                   
+			     	</td> 	
+			     </tr>
+			 
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="nom" value="Nom: " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="nom" value="#{passagerMB.passager.nom}" required="true" title="Ce champs est obligatoire" style="text-transform:uppercase" >
+			     		    <p:ajax event="blur" update="nomMsg" />
+			     		</p:inputText>
+			     		<p:message id="nomMsg" for="nom" display="icon"/> 
+			     	</td>
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="prenom" value="Prénom : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="prenom" value="#{passagerMB.passager.prenom}" required="true" title="Ce champs est obligatoire" style="text-transform:uppercase" >
+			     		    <p:ajax event="blur" update="prenomMsg" />
+			     		</p:inputText>
+			     		<p:message id="prenomMsg" for="prenom" display="icon"/> 
+			     	</td>
+			     </tr>
+			     
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="mobile" value="Mobile : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputMask id="mobile" value="#{passagerMB.passager.mobile}" mask="99 99 99 99 99" required="true"  title="Ce champs est obligatoire" >
+			     			<p:ajax event="blur" update="mobileMsg" />
+			     		</p:inputMask>
+			     		<p:message id="mobileMsg" for="mobile" display="icon"/> 	
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel  value="Tel. fix : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputMask id="telfix" value="#{passagerMB.passager.telfix}" mask="99 99 99 99 99"> 
+			     			<p:ajax event="blur" update="telfixMsg" />  
+			     		</p:inputMask>
+			     		<p:message id="telfixMsg" for="telfix" display="icon"/> 
+			     	</td>    
+			     </tr>   
+	
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="adresse" value="Adresse : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="adresse" value="#{passagerMB.passager.adresse.rue}" required="true" title="Ce champs est obligatoire" style="text-transform:uppercase">
+			     			<p:ajax event="blur" update="adresseMsg" />
+			     		</p:inputText>
+			     		<p:message id="adresseMsg" for="adresse" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="compladresse" value="Complément Adresse : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputText id="compladresse" value="#{passagerMB.passager.adresse.precision}" style="text-transform:uppercase"> 
+			     			<p:ajax event="blur" update="compladresseMsg" />  
+			     		</p:inputText>
+			     		<p:message id="compladresseMsg" for="compladresse" display="icon"/> 
+			     	</td>    
+			     </tr> 
+			     
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="cp" value="Code Postal : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputMask id="cp" value="#{passagerMB.passager.adresse.cp}" mask="99999" required="true" requiredMessage="Ce champs est obligatoire" >
+			     			<p:ajax event="blur" update="cpMsg" />
+			     		</p:inputMask>
+			     		<p:message id="cpMsg" for="cp" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="ville" value="Ville : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputText id="ville" value="#{passagerMB.passager.adresse.ville}" required="true"  title="Ce champs est obligatoire" style="text-transform:uppercase"> 
+			     			<p:ajax event="blur" update="villeMsg" />  
+			     		</p:inputText>
+			     		<p:message id="villeMsg" for="ville" display="icon"/> 
+			     	</td>    
+			     </tr> 
+			     
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="mail" value="Mail : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="mail" value="#{passagerMB.passager.mail}" required="true" style="text-transform:lowercase"
+			     				label="email" requiredMessage="Address email est obligatoire"
+								validatorMessage="le format email est invalide">
+			     			<p:ajax event="blur" update="mailMsg" />
+			     			<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+			     		</p:inputText>
+			     		<p:message id="mailMsg" for="mail" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab"></td> 
+			     	<td class="rd_winp"></td>   
+			     </tr>   			     
+		</table>
+</html>

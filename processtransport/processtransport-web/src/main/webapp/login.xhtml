@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+  
+ <h:head>
+ 	<title>ID PROCESS - Login </title>
+ 	<!--  <f:loadBundle basename="com.idprocess.transport.web.messages" var="msg" /> -->
+ 	 <link rel="stylesheet" type="text/css"  href="../css/style.css" />
+ 	 
+ </h:head> 
+
+ <h:body>
+ <f:view>
+  <!-- shape -->
+  <div id="rd_shape">
+    <div id="rd_shape_l1">
+      <div id="rd_shape_login"> 
+        <!-- brand -->
+        <div id="rd_brand">
+          <div id="rd_brand_l1">
+          	<img src="../img/logo_mi.png" width="90" height="85" alt="DGAC" />
+            <div id="rd_brand_00">
+              <h1>Process-Transport</h1>
+              Solution générique de gestion d'entreprise de transport.</div>
+          </div>
+        </div>
+        <!-- end brand --> 
+        <!-- content -->
+        <div id="rd_content">
+          <h2>Bienvenue</h2>
+          <div id="rd_content_l1">
+            <div id="rd_content_l2"> 
+            
+            <h:form>
+              <!-- edit area -->
+              <h3 class="rd_first">Veuillez vous identifier</h3>
+              
+              <p:panel id="panel">  
+              
+         <table class="rd_tableform rd_tableform_2c" style=" width: 890px;">
+                  <tr>
+                  		<td class="rd_wlab">
+                  			<h:outputLabel for="username" value="Login :" />  
+                  		</td>
+                  	    <td colspan="2">
+		            		<p:inputText value="#{loginMB.userName}" id="username" required="true" label="username">
+		                    	<f:validateLength minimum="4" />  
+		                    </p:inputText>  
+		              	</td>
+		            </tr>
+					
+		            <tr>
+                  		<td class="rd_wlab">  	
+		            		<h:outputLabel for="password" value="Mot de passe :" />
+		              	</td>
+		              	<td colspan="2">		            		
+		                     <p:password id="password" value="#{loginMB.password}" required="true" label="password" feedback="false"/>  
+		           			 <p:message for="password" /> 
+		                </td>
+				      </tr>    
+        	</table>
+        	
+        	 <!-- kb -->
+	              <div class="rd_kb rd_kb_right">
+		              	<ul>
+		              		<li>
+		              		<p:commandLink id="ajax" update="panel" action="#{loginMB.login}" ajax = "false" >  
+		              			<img width="16" height="16" alt="" src="../picto/control_play_blue.png"></img>
+		        				<h:outputText value="Accès à l'application" />  
+		    				</p:commandLink> 
+		   					</li>
+						</ul>
+					</div>
+	          </p:panel>             
+            </h:form>
+    
+              <!-- end kb --> 
+              <!-- end edit area --> 
+            </div>            
+          </div>
+        </div>
+      </div>
+      <!-- end content --> 
+    </div>
+  </div>
+  <!-- end shape --> 
+  <!-- end siteinfo -->
+
+</f:view>
+</h:body>
+</html>

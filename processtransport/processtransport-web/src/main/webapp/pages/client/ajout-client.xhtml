@@ -1,0 +1,236 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+ <h:head>
+ 	<title>ID PROCESS - Ajout des Clients</title>
+ 	 <link rel="stylesheet" type="text/css"  href="../../css/style.css" />
+ 	 
+ </h:head> 
+
+ <h:body>
+ <f:view>
+  <!-- end ghost --> 
+  <!-- shape -->
+  <div id="rd_shape">
+    <div id="rd_shape_l1">
+      <div id="rd_shape_l2"> 
+        <!-- brand -->
+        <div id="rd_brand">
+          <div id="rd_brand_l1"><img src="../../img/logo_mi.png" width="90" height="85" alt="DGAC" />
+            <div id="rd_brand_00">
+              <h1>Process-Transport</h1>
+              Solution générique de gestion d'entreprise de transport.</div>
+          </div>
+        </div>
+        <!-- end brand --> 
+        <!-- content -->
+        <div id="rd_content">
+        <h:form>
+        <div id="rd_submenu" class="rd_kb">
+			<ul>
+		        <li> 
+    				<a href="javascript:history.back()" >
+    					<img width="16" height="16" alt="" src="../../picto/cross.png"></img>
+    					Retour
+    				</a>
+    			</li>
+				<li><p:commandLink id="sauvegarder" update="display" actionListener="#{clientMB.addClient}" ajax = "false" >  
+              			<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+        				<h:outputText value="Sauvegarder" />  
+    				</p:commandLink> 
+    			</li>
+    			<h:outputText id="display"></h:outputText>
+    			
+			</ul>
+		</div>
+          <h2>Gestion des clients</h2>
+          <div id="rd_content_l1">
+            <div id="rd_content_l2"> 
+            	<h3 class="rd_first">Création client</h3>
+              <!-- edit area -->
+     
+     	<!-- debut ajout organisation -->
+     		<p:outputPanel name="div_organisation">  		     		     		    
+	                
+		     	<table class="rd_tableform rd_tableform_2c">
+		     	   <tr>		     
+			     	<td class="rd_wlab">
+			     		<h:inputHidden value="#{clientMB.client.typeClient}" />
+			     		<h:outputLabel value="Nom de l'organisation : " />
+			     	</td>  
+			        <td class="rd_winp">
+			        	<p:inputText id="organisation" style="text-transform:uppercase" value="#{clientMB.client.nomOrg}" required="true" title="Ce champs est obligatoire" >
+			     		    <p:ajax event="blur" update="organisationMsg" />
+			     		</p:inputText>
+			     		<p:message id="organisationMsg" for="organisation" display="icon"/> 			     		
+			        </td>
+			        <td class="rd_table_vsep rd_wlab"></td> 
+			     	<td class="rd_winp"></td>
+			     </tr>
+			 
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="departement" value="Département: " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="departement" style="text-transform:uppercase" value="#{clientMB.client.departement}" required="true" title="Ce champs est obligatoire" >
+			     		    <p:ajax event="blur" update="departementMsg" />
+			     		</p:inputText>
+			     		<p:message id="departementMsg" for="departement" display="icon"/> 
+			     	</td>
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="service" value="Service : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="service" style="text-transform:uppercase" value="#{clientMB.client.service}" required="true" title="Ce champs est obligatoire" >
+			     		    <p:ajax event="blur" update="serviceMsg" />
+			     		</p:inputText>
+			     		<p:message id="serviceMsg" for="service" display="icon"/> 
+			     	</td>
+			     </tr>
+			     <tr>		     
+			     	<td class="rd_wlab">
+			     		<h:outputLabel value="Civilité : " />
+			     	</td>  
+			        <td class="rd_winp">
+			        	<p:selectOneMenu id="civiliteOrg" style="text-transform:uppercase" value="#{clientMB.client.civilite}" required="true">  
+			            <f:selectItem itemLabel="-- selectionner --" itemValue="" />  
+			            <f:selectItem itemLabel="Mlle" itemValue="MELLE" />  
+			            <f:selectItem itemLabel="Mme" itemValue="MME" />  
+			            <f:selectItem itemLabel="Mr" itemValue="MR" />  
+			        	</p:selectOneMenu>
+			        </td>
+			        <td class="rd_table_vsep rd_wlab"></td> 
+			     	<td class="rd_winp"></td>
+			     </tr>
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="nom_res" value="Nom du responsable: " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="nom_res" style="text-transform:uppercase" value="#{clientMB.client.nomRep}"  required= "true" title="Ce champs est obligatoire" >
+			     		    <p:ajax event="blur" update="nom_resMsg" />
+			     		</p:inputText>
+			     		<p:message id="nom_resMsg" for="nom_res" display="icon"/> 
+			     	</td>
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="prenom_res" value="Prénom du responsable: " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="prenom_res" style="text-transform:uppercase" value="#{clientMB.client.prenomRep}" required="true" title="Ce champs est obligatoire" >
+			     		    <p:ajax event="blur" update="prenom_resMsg" />
+			     		</p:inputText>
+			     		<p:message id="prenom_resMsg" for="prenom_res" display="icon"/> 
+			     	</td>
+			     </tr>
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="mobileOrg" value="Mobile : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputMask id="mobileOrg" value="#{clientMB.client.mobile}"  mask="99 99 99 99 99" required="true" title="Ce champs est obligatoire" >
+			     			<p:ajax event="blur" update="mobileOrgMsg" />
+			     		</p:inputMask>
+			     		<p:message id="mobileOrgMsg" for="mobileOrg" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="telfixOrg" value="Tel. fix : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputMask id="telfixOrg" value="#{clientMB.client.telfix}"  mask="99 99 99 99 99" required="true" > 
+			     			<p:ajax event="blur" update="telfixOrgMsg" />  
+			     		</p:inputMask>
+			     		<p:message id="telfixOrgMsg" for="telfixOrg" display="icon"/> 
+			     	</td>    
+			     </tr>   
+	
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="adresseOrg" value="Adresse : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="adresseOrg" style="text-transform:uppercase" value="#{clientMB.client.adresse.rue}" required="true" title="Ce champs est obligatoire" >
+			     			<p:ajax event="blur" update="adresseOrgMsg" />
+			     		</p:inputText>
+			     		<p:message id="adresseOrgMsg" for="adresseOrg" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="compladresseOrg" value="Complément Adresse : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputText id="compladresseOrg" style="text-transform:uppercase" value="#{clientMB.client.adresse.precision}"> 
+			     			<p:ajax event="blur" update="compladresseOrgMsg" />  
+			     		</p:inputText>
+			     		<p:message id="compladresseOrgMsg" for="compladresseOrg" display="icon"/> 
+			     	</td>    
+			     </tr> 
+			     
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="cpOrg" value="Code Postal : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputMask id="cpOrg" value="#{clientMB.client.adresse.cp}" mask="99999" required="true" requiredMessage="Ce champs est obligatoire" >
+			     			<p:ajax event="blur" update="cpOrgMsg" />
+			     		</p:inputMask>
+			     		<p:message id="cpOrgMsg" for="cpOrg" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="villeOrg" value="Ville : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputText id="villeOrg" style="text-transform:uppercase" value="#{clientMB.client.adresse.ville}" required ="true" title="Ce champs est obligatoire" > 
+			     			<p:ajax event="blur" update="villeOrgMsg" />  
+			     		</p:inputText>
+			     		<p:message id="villeOrgMsg" for="villeOrg" display="icon"/> 
+			     	</td>    
+			     </tr> 
+			     
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="mailOrg" value="Mail : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="mailOrg" style="text-transform:uppercase" value="#{clientMB.client.mail}" required="true" 
+			     				label="email" requiredMessage="Address email est obligatoire"
+								validatorMessage="le format email est invalide">
+			     			<p:ajax event="blur" update="mailOrgMsg" />
+			     			<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+			     		</p:inputText>
+			     		<p:message id="mailOrgMsg" for="mailOrg" display="icon"/>			     				     
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="commentaire" value="Commentaires : " />
+			     	</td> 
+			     	<td class="rd_winp">			     	
+			     		<h:inputTextarea id="commentaire" value="#{clientMB.client.commentaire}" label="commentaires"  cols="30" rows="15" />		     
+			     	</td>   
+			     </tr>  			              		           
+		     	</table>	     	
+     	</p:outputPanel> 
+		<!-- fin ajout organisation -->     
+     <br />
+	 <br />
+	 	 
+	 <div style="margin-top : 30px ; margin-left:50px ; font-size : 7pt ;">(*) Informations obligatoires</div>
+			  
+              <!-- end edit area --> 
+            </div>
+          </div>
+          </h:form>
+        </div>
+      </div>
+      <!-- end content --> 
+    </div>
+  </div>
+  <!-- end shape --> 
+  <!-- end siteinfo -->
+
+</f:view>
+</h:body>
+</html>

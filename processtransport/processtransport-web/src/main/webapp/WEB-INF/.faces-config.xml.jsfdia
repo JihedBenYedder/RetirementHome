@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#pages#success.html" NAME="output"
+    PATH="/pages/success.html" TARGET="rules:#pages#success.html"
+    TITLE="success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="error::#pages#error.html" NAME="output1"
+    PATH="/pages/error.html" TARGET="rules:#pages#error.html"
+    TITLE="error" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="loginOK::#pages#index.html" NAME="output2"
+    PATH="/pages/index.html" TARGET="rules:#pages#index.html"
+    TITLE="loginOK" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="loginNOTOK::#pages#error.html"
+    NAME="output3" PATH="/pages/error.html"
+    TARGET="rules:#pages#error.html" TITLE="loginNOTOK" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#success.html"
+  PATH="/pages/success.html" SHAPE="288,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#error.html" PATH="/pages/error.html"
+  SHAPE="288,241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#index.html" PATH="/pages/index.html"
+  SHAPE="288,241,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

@@ -1,0 +1,200 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+ <h:head>
+ 	<title>ID PROCESS - Ajout des Clients</title>
+ 	 <link rel="stylesheet" type="text/css"  href="../../css/style.css" />
+ 	 
+ </h:head> 
+
+ <h:body>
+ <f:view>
+  <!-- end ghost --> 
+  <!-- shape -->
+  <div id="rd_shape">
+    <div id="rd_shape_l1">
+      <div id="rd_shape_l2"> 
+        <!-- brand -->
+        <div id="rd_brand">
+          <div id="rd_brand_l1"><img src="../../img/logo_mi.png" width="90" height="85" alt="DGAC" />
+            <div id="rd_brand_00">
+              <h1>Process-Transport</h1>
+              Solution générique de gestion d'entreprise de transport.</div>
+          </div>
+        </div>
+        <!-- end brand --> 
+        <!-- content -->
+        <div id="rd_content">
+        <h:form>
+        <div id="rd_submenu" class="rd_kb">
+			<ul>
+		        <li><a href="javascript:history.back()" >
+    					<img width="16" height="16" alt="" src="../../picto/cross.png"></img>
+    					Retour
+    				</a> 
+    			</li>
+				<li><p:commandLink id="sauvegarder" update="display" actionListener="#{clientMB.addClient}" ajax = "false" >  
+              			<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+        				<h:outputText value="Modifier" />  
+    				</p:commandLink> 
+    			</li>
+    			<h:outputText id="display"></h:outputText>
+    			
+			</ul>
+		</div>
+          <h2>Gestion des clients</h2>
+          <div id="rd_content_l1">
+            <div id="rd_content_l2"> 
+            	<h3 class="rd_first">Détails client</h3>
+              <!-- edit area -->
+                     
+				 
+			<!-- debut div ajout particulier -->
+			<p:outputPanel name="div_particulier" rendered="true">  		     		     		    
+	          	               
+		     	<table class="rd_tableform rd_tableform_2c">
+		     	   <tr>		     
+			     	<td class="rd_wlab">
+			     		<h:outputLabel value="Civilité : " />
+			     	</td>  
+			        <td class="rd_winp">
+			        	<p:selectOneMenu id="civilitePar" value="#{clientMB.clientdetaille.civilite}" >  
+			            <f:selectItem itemLabel="-- selectionner --" itemValue="" />  
+			            <f:selectItem itemLabel="Mlle" itemValue="melle" />  
+			            <f:selectItem itemLabel="Mme" itemValue="mme" />  
+			            <f:selectItem itemLabel="Mr" itemValue="mr" />  
+			        	</p:selectOneMenu>
+			        </td>
+			        <td class="rd_table_vsep rd_wlab"></td> 
+			     	<td class="rd_winp"></td>
+			     </tr>
+			 
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="nom" value="Nom: " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="nom" value="#{clientMB.clientdetaille.nom}"   >
+			     		    <p:ajax event="blur" update="nomMsg" />
+			     		</p:inputText>
+			     		<p:message id="nomMsg" for="nom" display="icon"/> 
+			     	</td>
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="prenom" value="Prénom : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="prenom" value="#{clientMB.clientdetaille.prenom}"   >
+			     		    <p:ajax event="blur" update="prenomMsg" />
+			     		</p:inputText>
+			     		<p:message id="prenomMsg" for="prenom" display="icon"/> 
+			     	</td>
+			     </tr>
+			     
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="mobilePar" value="Mobile : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="mobilePar" value="#{clientMB.clientdetaille.mobile}"    >
+			     			<f:validateLength minimum="10" maximum="10" /> 
+			     			<p:ajax event="blur" update="mobileParMsg" />
+			     		</p:inputText>
+			     		<p:message id="mobileParMsg" for="mobilePar" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="telfixPar" value="Tel. fix : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputText id="telfixPar" value="#{clientMB.clientdetaille.telfix}" > 
+			     			<f:validateLength minimum="10" maximum="10" /> 
+			     			<p:ajax event="blur" update="telfixParMsg" />  
+			     		</p:inputText>
+			     		<p:message id="telfixParMsg" for="telfixPar" display="icon"/> 
+			     	</td>    
+			     </tr>   
+	
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="adressePar" value="Adresse : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="adressePar" value="#{clientMB.clientdetaille.adresse}"   >
+			     			<p:ajax event="blur" update="adresseParMsg" />
+			     		</p:inputText>
+			     		<p:message id="adresseParMsg" for="adressePar" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="compladressePar" value="Complément Adresse : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputText id="compladressePar" value="#{clientMB.clientdetaille.compladresse}"> 
+			     			<p:ajax event="blur" update="compladresseParMsg" />  
+			     		</p:inputText>
+			     		<p:message id="compladresseParMsg" for="compladressePar" display="icon"/> 
+			     	</td>    
+			     </tr> 
+			     
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="cpPar" value="Code Postal : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="cpPar" value="#{clientMB.clientdetaille.cp}"   >
+			     			<p:ajax event="blur" update="cpParMsg" />
+			     		</p:inputText>
+			     		<p:message id="cpParMsg" for="cpPar" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab">
+			     		<h:outputLabel for="villePar" value="Ville : " />
+			     	</td>   
+			     	<td class="rd_winp">
+			     		<p:inputText id="villePar" value="#{clientMB.clientdetaille.ville}" > 
+			     			<p:ajax event="blur" update="villeParMsg" />  
+			     		</p:inputText>
+			     		<p:message id="villeParMsg" for="villePar" display="icon"/> 
+			     	</td>    
+			     </tr> 
+			     
+			     <tr>
+			     	<td class="rd_wlab">
+			     		<h:outputLabel for="mailPar" value="Mail : " />
+			     	</td>
+			     	<td class="rd_winp">
+			     		<p:inputText id="mailPar" value="#{clientMB.clientdetaille.mail}"  >
+			     			<p:ajax event="blur" update="mailParMsg" />
+			     		</p:inputText>
+			     		<p:message id="mailParMsg" for="mailPar" display="icon"/> 
+			     	</td>
+			     
+			     	<td class="rd_table_vsep rd_wlab"></td> 
+			     	<td class="rd_winp"></td>   
+			     </tr>   
+			      
+		     	</table>
+	     	
+     	</p:outputPanel> 			
+
+     	<!-- fin div ajout particulier -->
+        
+     <br />
+	 <br />
+	 	 			  
+              <!-- end edit area --> 
+            </div>
+          </div>
+          </h:form>
+        </div>
+      </div>
+      <!-- end content --> 
+    </div>
+  </div>
+  <!-- end shape --> 
+  <!-- end siteinfo -->
+
+</f:view>
+</h:body>
+</html>

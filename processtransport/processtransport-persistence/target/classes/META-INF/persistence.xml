@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="springJpaPersistenceUnit"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<class>com.idprocess.transport.model.Client</class>
+		<class>com.idprocess.transport.model.Passager</class>
+		<class>com.idprocess.transport.model.Groupe</class>
+		<class>com.idprocess.transport.model.Utilisateur</class>
+		<class>com.idprocess.transport.model.Chauffeur</class>
+		<class>com.idprocess.transport.model.Mission</class>
+		<class>com.idprocess.transport.model.Vehicule</class>
+		<class>com.idprocess.transport.model.Contrat</class>
+		<class>com.idprocess.transport.model.Facture</class>
+		<class>com.idprocess.transport.model.LignesFacture</class>
+		<class>com.idprocess.transport.model.Adresse</class>
+		<class>com.idprocess.transport.model.PlanningSemaine</class>
+		<class>com.idprocess.transport.model.DetailContrat</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

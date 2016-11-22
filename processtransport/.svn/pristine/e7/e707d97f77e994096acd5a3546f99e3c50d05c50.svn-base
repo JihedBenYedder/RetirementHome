@@ -1,0 +1,302 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+ <h:head>
+ 	<title>ID PROCESS - Gestion des Factures</title>
+ 	 <link rel="stylesheet" type="text/css"  href="../../css/style.css" />
+ 	 
+ </h:head>
+ 
+ <h:body>
+ <f:view>
+ <div id="rd_shape">
+ 	<div id="rd_shape_l1">
+ 		<div id="rd_shape_l2"> 
+ 			<div id="rd_brand">
+ 				  <div id="rd_brand_l1"><img src="../../img/logo_mi.png" width="90" height="85" alt="DGAC" />
+            	<div id="rd_brand_00">
+              <h1>Process-Transport</h1>
+              Solution générique de gestion d'entreprise de transport.</div>
+          			</div>
+ 			</div>
+ 			
+ 			<h:form id="form">  
+ 			
+ 			 <div id="rd_content">			 
+	        	        
+	         <h2>Gestion des Factures</h2>
+	           <div id="rd_content_l1">
+	           <div id="rd_content_l2"> 
+	           		<h3 class="rd_first">Création de Facture</h3>
+	           		
+	           		<table class="rd_tableform rd_tableform_2c">
+		           		<tr>
+					     	<td class="rd_wlab">
+					     		<h:outputLabel value="Du : " />
+					     	</td>
+					     	<td class="rd_winp">													     	
+ 								<p:calendar locale="fr" showOn="button" id="dateDebut" size="15" value="#{factureMB.dateDebut}" />							
+					     	</td>
+					     	
+					     	<td class="rd_table_vsep rd_wlab">
+					     		<h:outputLabel value="Au : " />
+					     	</td>
+				        	<td class="rd_winp">
+				        	 	<p:calendar locale="fr" showOn="button" navigator="true" id="dateFin" size="15" value="#{factureMB.dateFin}" />
+				        	</td>			     	
+			     		</tr>
+			     		
+			     		<tr>
+					     	<td class="rd_wlab">
+					     		<h:outputLabel value="Client: " />
+					     	</td>
+					     	<td class="rd_winp">
+					     		<p:selectOneMenu value="icic_MB">  
+			                        <f:selectItem itemLabel="Tous" itemValue="0" />				                        				                    
+			                        <f:selectItems value="#{clientMB.list}" var="client" itemLabel="#{client.nomOrg}" itemValue="#{client.id}" />				                        			     		    
+					          	</p:selectOneMenu>
+					     	</td>
+					     	
+					     	<td class="rd_table_vsep rd_wlab">
+					     		<h:outputLabel for="client" value="Passager : " />
+					     	</td>
+				        	<td class="rd_winp">
+				        	 	<p:selectOneMenu value="ici_MB">  
+			                        <f:selectItem itemLabel="Tous" itemValue="0" />				                        				                    
+			                        <f:selectItems value="#{passagerMB.listPassager}" var="passager" itemLabel="#{passager.nom}" itemValue="#{passager.idPassager}" />				                        			     		    
+					          	</p:selectOneMenu> 
+				        	</td>			     	
+			     		</tr>
+	           		</table>
+	           		
+	           		<br />
+				     <div class="rd_kb rd_kb_right">
+				              <ul>
+					                <li> <p:commandLink id="rechercheMissionFacture" update="listMission" action="#{factureMB.findMissionByMultiParam}" ajax="false"> 
+					                     <img width="16" height="16" alt="" src="../../picto/magnifier.png"></img>
+					        				<h:outputText value="Recherche" />  
+					    				</p:commandLink> 
+					    			</li>
+				              </ul>
+		            </div>
+		            
+		            <!-- Taleau des resultat de recherche -->
+		            
+		            									<!-- reste a modifier le comtenue de ce tableau -->
+		            
+		            <p:dataTable id="resultMissions" var="mission" value="#{clientMB.list}" rendered="#{factureMB.tableauFacture}">				        
+				        
+				        <p:column headerText="Date " style="width:24%">  
+				            <h:outputText value="#{client.nom}" />  
+				        </p:column>  
+				  
+				        <p:column headerText="Heure" style="width:24%">  
+				            <h:outputText value="#{client.cp}" />  
+				        </p:column>  
+				  
+				        <p:column headerText="Client " style="width:24%">  
+				            <h:outputText value="#{client.adresse}" />  
+				        </p:column>  
+				  
+				        <p:column headerText="Passager " style="width:24%">  
+				            <h:outputText value="#{client.ville}" />  
+				        </p:column> 
+				        
+				        <p:column headerText="Départ " style="width:24%;">  
+				            <h:outputText value="#{client.ville}" />  
+				        </p:column> 
+				        
+				        <p:column headerText="Arrivée " style="width:24%">  
+				            <h:outputText value="#{client.ville}" />  
+				        </p:column> 
+				        
+				        <p:column headerText="Tarif " style="width:24%">  
+				            <h:outputText value="#{client.ville}" />  
+				        </p:column>  
+				        
+				        <p:column headerText="Etat " style="width:24%">  
+				            <h:outputText value="#{client.ville}" />  
+				        </p:column>   
+				  
+				        <p:column style="width:4%">  
+				                <p:commandButton id="selectButton" update=":form:displayMission" oncomplete="missionDialog.show()" icon="ui-icon-search" title="View">  
+				                <f:setPropertyActionListener value="#{client}" target="#{clientMB.selectedClientPar}" />  
+				            </p:commandButton>  
+				        </p:column>  
+				  
+				    </p:dataTable>
+				      
+				  		<!-- popup des missions -->
+				  	
+				     <p:dialog header="Mission Detail" widgetVar="missionDialog" resizable="false" id="missionDlg"
+				                showEffect="fade" hideEffect="explode" modal="false" width="700" height="400">  
+				
+						<div id="rd_submenu2" class="rd_kb" style="right: 5px;">
+								<ul>
+							        <li>
+							        	<p:commandLink id="fermer" update="missionDlg" action="missionDlg.hide()" >  
+					              			<img width="16" height="16" alt="" src="../../picto/application_osx.png"></img>
+					        				<h:outputText value="Fermer" />  
+					    				</p:commandLink> 
+					    			</li>
+									<li>
+									<p:outputPanel id="boutton">
+										<!-- bouton modifier : active les champs -->
+										<p:commandLink id="modifC" update="displayMission,boutton" action="#{factureMB.activerChamps}" ajax="true" rendered="#{factureMB.desactivation}">  
+					              			<img width="16" height="16" alt="" src="../../picto/add.png"></img>
+					        				<h:outputText value="Modifier la Mission" />  
+					    				</p:commandLink> 
+					    				<!-- bouton sauvegarder : desactive les champs -->
+					    				<p:commandLink id="savegarderC" update="displayMission,boutton" action="#{factureMB.desactiverChamps}" ajax="true" rendered="#{factureMB.activation}">  
+					              			<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+					        				<h:outputText value="Sauvegarder Mission" />  
+					    				</p:commandLink>
+					    			</p:outputPanel>
+					    			</li>
+								</ul>
+						</div>
+					        
+				
+				  		<p:outputPanel id="displayMission">
+				  		<br /><br /><br /><br />
+				  		<table class="rd_tableform2 rd_tableform_2c" style="width: 650px">
+				  			<tr>		     
+						     	<td class="fact_rd_wlab"><h:outputText value="ID Mission :" /> </td>  
+						        <td class="rd_winp">
+						        	<h:outputText value="1025" style="font-weight:bold;" rendered="#{clientMB.desactivation}"/>
+						        	<p:inputText value="#{clientMB.selectedClientPar.id}" style="font-weight:bold;"  rendered="#{clientMB.activation}" disabled="true"/>
+						        </td>					        
+				            	     
+						     	<td class="fact_rd_wlab"><h:outputText value="Date :" /> </td>  
+						        <td class="rd_winp" >
+						        	<h:outputText value="Lundi 12/04/2013" style="font-weight:bold;" rendered="#{clientMB.desactivation}"/>
+						        	<p:inputText value="#{clientMB.selectedClientPar.typeClient}" style="font-weight:bold;"  rendered="#{clientMB.activation}" disabled="true"/>
+						        </td>
+				               			
+				  				<td class="fact_rd_wlab"><h:outputText value="Heure :" />  </td>
+				            	<td class="rd_winp" >
+				            		<h:outputText value="08:00" style="font-weight:bold;" rendered="#{clientMB.desactivation}"/>
+						        	<p:inputText value="#{clientMB.selectedClientPar.typeClient}" style="font-weight:bold;"  rendered="#{clientMB.activation}" disabled="true"/>            		
+				            	</td> 				            					            
+				             </tr>
+				             <tr> 
+				             	<td class="fact_rd_wlab"><h:outputText value="Civilité :" />  </td>
+				            	<td class="rd_winp">
+				            		<h:outputText value="Mr" style="font-weight:bold"  rendered="#{clientMB.desactivation}"/>
+						        	<p:selectOneMenu id="civilitePar" value="#{clientMB.selectedClientPar.civilite}" rendered="#{clientMB.activation}">  
+							            <f:selectItem itemLabel="#{clientMB.selectedClientPar.civilite}" itemValue="#{clientMB.selectedClientPar.civilite}" />  
+							            <f:selectItem itemLabel="Mlle" itemValue="melle" />  
+							            <f:selectItem itemLabel="Mme" itemValue="mme" />  
+							            <f:selectItem itemLabel="Mr" itemValue="mr" />  
+					        		</p:selectOneMenu>            		
+				            	</td>                       
+				            	<td class="fact_rd_wlab"><h:outputText value="Nom :" /> </td> 
+				            	<td class="rd_winp">
+				            		<h:outputText value="BOULAHIA" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+				            		<p:inputText value="#{clientMB.selectedClientPar.nom}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+				            	</td>
+				                      
+				            	<td class="fact_rd_wlab"><h:outputText value="Prenom :" /> </td> 
+				            	<td class="rd_winp">
+				            		<h:outputText value="Anis" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+				            		<p:inputText value="#{clientMB.selectedClientPar.prenom}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+				            	</td>
+							</tr>
+				            <tr>
+				            	<td class="fact_rd_wlab" style="height:70px; padding-right: -10px"><h:outputText value="Départ :" /></td> 				            
+				            	<td class="rd_winp" colspan="6"> 
+				            		<table style="margin-left:-10px">
+				            			<tr>
+				            				<td style="width: 230px; border:none">
+							            		<h:outputText value="  12 rue de picpus" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+							            		<p:inputText value="#{clientMB.selectedClientPar.adresse}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+							            	</td>
+							            	<td style="width: 160px; border:none">
+						            			<h:outputText value="Code postale :  " />
+						            			<h:outputText value="  75012" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+						            			<p:inputText value="#{clientMB.selectedClientPar.cp}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+							            	</td>
+							            	<td style="width: 190px; border:none">
+							            		<h:outputText value="Ville :  " />
+						            			<h:outputText value="  Paris" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+						            			<p:inputText value="#{clientMB.selectedClientPar.ville}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>				            		  				            		
+					            			</td>
+					            		</tr>
+				            		</table>
+				            	</td>
+				  			</tr>  			
+				            <tr>
+				            	<td class="fact_rd_wlab" style="height:70px"><h:outputText value="Arrivée :" /></td> 				            
+				            	<td class="rd_winp" colspan="6">
+				            		<table style="margin-left:-10px">
+				            			<tr>
+				            				<td style="width: 230px; border:none">
+							            		<h:outputText value="  12 boulevard de general de gaule" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+							            		<p:inputText value="#{clientMB.selectedClientPar.adresse}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+							            	</td>
+							            	<td style="width: 160px; border:none">
+						            			<h:outputText value="Code postale :  " />
+						            			<h:outputText value="  75012" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+						            			<p:inputText value="#{clientMB.selectedClientPar.cp}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+							            	</td>
+							            	<td style="width: 190px; border:none">
+							            		<h:outputText value="Ville :  " />
+						            			<h:outputText value="  Paris" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+						            			<p:inputText value="#{clientMB.selectedClientPar.ville}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>				            		  				            		
+					            			</td>
+					            		</tr>
+				            		</table>
+				            	</td>
+				  			</tr>  			
+				            <tr>
+				            	<td class="fact_rd_wlab"><h:outputText value="Chauffeur :" />  </td>
+				            	<td class="rd_winp">
+				            		<h:outputText value="Khaled Khaled" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+				            		<p:inputText value="#{clientMB.selectedClientPar.adresse}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+				            	</td>
+				  			
+				            	<td class="fact_rd_wlab"><h:outputText value="Voiture :" />  </td>
+				            	<td class="rd_winp">
+				            		<h:outputText value="Clio 2" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+				            		<p:inputText value="#{clientMB.selectedClientPar.compladresse}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+				            	</td>
+							
+				            	<td class="fact_rd_wlab"><h:outputText value="Tarif" />  </td>
+				            	<td class="rd_winp">
+				            		<h:outputText value="45 €" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+				            		<p:inputText value="#{clientMB.selectedClientPar.cp}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+				            	</td>
+				            </tr>
+				  			<tr>
+				            	<td class="fact_rd_wlab"><h:outputText value="Etat" />  </td>
+				            	<td class="rd_winp">
+				            		<h:outputText value="Validée" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+				            		<p:inputText value="#{clientMB.selectedClientPar.ville}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+				            	</td>
+				            	<td class="fact_rd_wlab"><h:outputText value="Commentaire" />  </td>
+				            	<td class="rd_winp" colspan="3">
+				            		<h:outputText value="#{clientMB.selectedClientPar.ville}" style="font-weight:bold" rendered="#{clientMB.desactivation}"/>
+				            		<h:inputTextarea value="#{clientMB.selectedClientPar.ville}" style="font-weight:bold;" rendered="#{clientMB.activation}"/>
+				            	</td>
+							</tr>
+				            </table>     
+				  	</p:outputPanel>
+				  	</p:dialog>       
+				     <!-- fin popup mission -->			     		
+
+     	<!-- fin div search mission -->
+		            
+		            
+		            
+		            
+	           </div>	         
+	           </div>
+ 			 </div> 			 
+ 			 </h:form>
+ 		</div>
+	 </div>
+ </div>
+</f:view>
+</h:body>
+</html>

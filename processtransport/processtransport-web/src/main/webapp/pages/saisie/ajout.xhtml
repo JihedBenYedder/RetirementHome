@@ -1,0 +1,169 @@
+<html xmlns="http://www.w3.org/1999/xhtml"  
+     xmlns:h="http://java.sun.com/jsf/html"      
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">  
+ <h:head>
+ 	<title>ID PROCESS - Saisie de fiches de missions</title>
+ 	 <link rel="stylesheet" type="text/css"  href="../../css/style.css" />
+ 	 
+ <style>
+ 
+ #monTable td{ height: 40px;
+     padding: 20px 5px 10px 5px;
+     border:1px solid red;
+     }
+
+ </style>
+ </h:head> 
+
+ <h:body>
+ <f:view>
+  <!-- end ghost --> 
+  <!-- shape -->
+  <div id="rd_shape">
+    <div id="rd_shape_l1">
+      <div id="rd_shape_l2"> 
+        <!-- brand -->
+        <div id="rd_brand">
+          <div id="rd_brand_l1"><img src="../../img/logo_mi.png" width="90" height="85" alt="DGAC" />
+            <div id="rd_brand_00">
+              <h1>Process-Transport</h1>
+              Solution générique de gestion d'entreprise de transport.</div>
+          </div>
+        </div>
+        <!-- end brand --> 
+        <!-- content -->
+        <div id="rd_content">
+        <h:form>
+        <div id="rd_submenu" class="rd_kb">
+			<ul>
+		        <li> 
+    				<a href="javascript:history.back()" >
+    					<img width="16" height="16" alt="" src="../../picto/cross.png"></img>
+    					Retour
+    				</a>
+    			</li>
+				<li><p:commandLink id="sauvegarder" update="display" actionListener="#{clientMB.addClient}" ajax = "false" >  
+              			<img width="16" height="16" alt="" src="../../picto/disk.png"></img>
+        				<h:outputText value="Sauvegarder" />  
+    				</p:commandLink> 
+    			</li>
+    			<h:outputText id="display"></h:outputText>
+    			
+			</ul>
+		</div>
+          <h2>Saisie de fiches de missions</h2>
+          <div id="rd_content_l1">
+            <div id="rd_content_l2"> 
+            	<h3 class="rd_first">Saisie fiche</h3>
+              <!-- edit area -->
+
+<div class="rd_jteleport">
+	<table id="monTable" style="border: none">
+
+		<tr>
+			<td>
+				<h:outputLabel for="dateM" value="Date :  " />		
+			</td>
+			<td>
+				<p:calendar
+					value="#{contratMB.detailcontrat.dateDebutOcass}" locale="fr"
+					showOn="button" navigator="true" id="datealler" size="15" /> 			
+			</td>
+			
+			<td>
+				<h:outputLabel for="heureM" value="Heure :  " />			
+			
+				<p:calendar
+					value="#{contratMB.detailcontrat.heureAllerOcass}"
+					id="heureDepAllOcc" pattern="HH:mm" size="5" timeOnly="true" /> 
+					<p:watermark for="heureDepAllOcc" value="HH:MM"></p:watermark> 
+			</td>
+			<td><p:inputText id="tarifttc" value="#{contratMB.detailcontrat.tarifTtc}" size="5">
+					<p:ajax event="blur" update="tarifttcMsg" />
+				</p:inputText> Euros
+				<p:watermark value="Traif TTC" for="tarifttc"></p:watermark>
+				<p:message id="tarifttcMsg" for="tarifttc" display="icon" />
+			</td>			
+			<td></td>			
+		</tr>
+
+		<tr>
+			<td></td>
+			<td>
+				<p:selectOneMenu value="#{passagerMB.passager.client.id}"> 
+  					  <f:selectItem itemLabel="-- choix client ---" itemValue="0" /> 
+                      <f:selectItems value="#{clientMB.list}" var="client" itemLabel="#{client.nomOrg}" 
+                      				itemValue="#{client.id}"/>              				                        			     		 
+			    </p:selectOneMenu>
+			</td>
+			
+			<td>    
+				<p:selectOneMenu
+					value="#{contratMB.contrat.passager.idPassager}">
+					<f:selectItem itemLabel="-- choix passager ---" itemValue="0" />
+					<f:selectItems value="#{passagerMB.listPassager}" var="pass"
+						itemLabel="#{pass.nom} #{pass.prenom}" itemValue="#{pass.idPassager}" />
+				</p:selectOneMenu>
+			</td>
+			
+			<td>
+				<p:selectOneMenu value="rien" id="chauffeurM"> 
+  					  <f:selectItem itemLabel="- choix chauffeur -" itemValue="0" />
+  					  <f:selectItem itemLabel="Abdel" itemValue="Abdel" />   					   
+  					  <f:selectItem itemLabel="Abrederrahim" itemValue="Abrederrahim" /> 
+  					  <f:selectItem itemLabel="Khaled" itemValue="Khaled" /> 
+  					  <f:selectItem itemLabel="Malek" itemValue="Malek" />
+  					  <f:selectItem itemLabel="Walid" itemValue="Walid" /> 
+			    </p:selectOneMenu>
+			</td>
+			<td>
+				<p:selectOneMenu value="rien" id="voitureM"> 
+  					  <f:selectItem itemLabel="- choix voiture -" itemValue="0" />
+  					  <f:selectItem itemLabel="Caddy" itemValue="Caddy" />  					  
+  					  <f:selectItem itemLabel="Clio noir" itemValue="Clio noir" />   					   
+  					  <f:selectItem itemLabel="Megane" itemValue="Megane" /> 
+  					  <f:selectItem itemLabel="Mercedes" itemValue="Mercedes" /> 
+  					  <f:selectItem itemLabel="Autre" itemValue="Autre" /> 
+			    </p:selectOneMenu>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<h:outputLabel value="Lieu Départ: " />
+			</td>
+			<td>
+				<p:inputText id="depart" size="30"
+					value="iciMB">
+					<p:ajax event="blur" update="departMsg" />
+				</p:inputText> 
+				<p:message id="departMsg" for="depart" display="icon" /> 				
+			</td>
+			<td>
+				<h:outputLabel value="Lieu Arrivée: " />
+				
+				<p:inputText id="arrivee" size="30"
+					value="iciMB">
+					<p:ajax event="blur" update="arriveeMsg" />
+				</p:inputText> 
+				<p:message id="arriveeMsg" for="arrivee" display="icon" /> 
+			</td>
+		</tr>	
+	</table>
+
+</div>
+
+</div>
+						</div>
+					</h:form>
+				</div>
+			</div>
+			<!-- end content -->
+		</div>
+	</div>
+	<!-- end shape -->
+	<!-- end siteinfo -->
+</f:view>
+</h:body>
+</html>

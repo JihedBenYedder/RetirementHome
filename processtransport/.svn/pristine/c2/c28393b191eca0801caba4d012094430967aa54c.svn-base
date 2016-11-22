@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<title>ID PROCESS - Ajout des Contrat</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	<style>
+#monTable td {
+	height: 20px;
+	padding: 7px;
+}
+</style>
+
+<!-- <h:outputScript library="js" name="contrat.js" /> -->
+
+</h:head>
+
+<h:body>
+
+	<f:view>
+		<!-- end ghost -->
+		<!-- shape -->
+		<div id="rd_shape">
+			<div id="rd_shape_l1">
+				<div id="rd_shape_l2">
+					<!-- brand -->
+					<div id="rd_brand">
+						<div id="rd_brand_l1">
+							<img src="../../img/logo_mi.png" width="90" height="85"
+								alt="DGAC" />
+							<div id="rd_brand_00">
+								<h1>Process-Transport</h1>
+								Solution générique de gestion d'entreprise de transport.
+							</div>
+						</div>
+					</div>
+					<!-- end brand -->
+					<!-- content -->
+					<div id="rd_content">
+						<h:form id="mon_form" name="mon_form">
+							<div id="rd_submenu" class="rd_kb">
+								<ul>
+									<li><p:commandLink id="valider" update="display"
+											actionListener="#{contratMB.addContrat}" ajax="false">
+											<img width="16" height="16" alt=""
+												src="../../picto/accept.png"></img>
+											<h:outputText value="Enregistrer le contrat" />
+										</p:commandLink></li>
+									<li><a href="/processtransport-web/pages/index.html">
+											<img width="16" height="16" alt=""
+											src="../../picto/application_osx.png"></img> 
+											Retour Accueil
+									</a></li>
+									<h:outputText id="display"></h:outputText>
+
+								</ul>
+							</div>
+							<h2>Gestion des Contrats</h2>
+							<div id="rd_content_l1">
+								<div id="rd_content_l2">
+									<h3 class="rd_first">Ajout d'un contrat</h3>
+									<!-- edit area -->
+
+									<div style="text-align: center;">
+										<h:selectOneMenu value="#{contratMB.category}"
+											onchange="submit()"
+											valueChangeListener="#{contratMB.chooseCategory}">
+											<f:selectItem itemLabel="regulier" itemValue="regulier" />
+											<f:selectItem itemLabel="occasionnel" itemValue="occasionnel" />
+										</h:selectOneMenu>
+										<br />
+										<br />
+									</div>
+
+
+									<!-- debut div ajout occasionnel -->
+									<p:outputPanel name="div_occasionnel"
+										rendered="#{contratMB.occasionnelCategory}">
+										<!-- ici include du formulaire -->
+										<ui:include src="formulaire_cont_occas.xhtml"></ui:include>
+									</p:outputPanel>
+									<!-- fin div aout occasionnel -->
+
+									<!-- debut ajout regulier -->
+									<p:outputPanel name="div_regulier"
+										rendered="#{contratMB.regulierCategory}">
+										<ui:include src="formulaire_cont_regulier2.xhtml"></ui:include>
+									</p:outputPanel>
+									<!-- fin ajout regulier -->
+									<br /> <br />
+									<!-- end edit area -->
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+				<!-- end content -->
+			</div>
+		</div>
+		<!-- end shape -->
+		<!-- end siteinfo -->
+
+	</f:view>
+</h:body>
+</html>
