@@ -1,4 +1,4 @@
-package org.RtmHomeWeb;
+package com.rtmhome;
 
 /**
  * Hello world!
