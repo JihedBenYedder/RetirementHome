@@ -7,6 +7,9 @@
   <packaging>pom</packaging>
   <modules>
     <module>RtmHomeModel</module>
+    <module>RtmHomePersistence</module>
+    <module>RtmHomeService</module>
+    <module>RtmHomeWeb</module>
   </modules>
   
   	<properties>
