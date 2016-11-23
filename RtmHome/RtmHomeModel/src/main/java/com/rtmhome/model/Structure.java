@@ -1,4 +1,4 @@
-package com.rtmhome;
+package com.rtmhome.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,11 +37,11 @@ public class Structure {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_staff", nullable = true)
-	private Staff staff;
+	private Staff staff = new Staff();
 	
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_address" , nullable = true)
-	private Address address;
+	private Address address = new Address();
 	
 }
