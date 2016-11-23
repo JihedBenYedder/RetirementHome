@@ -1,4 +1,4 @@
-package com.rtmhome;
+package com.rtmhome.model;
 
 import java.sql.Date;
 

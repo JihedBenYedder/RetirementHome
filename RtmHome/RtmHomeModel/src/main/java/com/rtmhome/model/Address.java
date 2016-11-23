@@ -1,4 +1,4 @@
-package com.rtmhome;
+package com.rtmhome.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table("ADDRESS")
+@Table(name = "ADDRESS")
 public class Address {
 
 	

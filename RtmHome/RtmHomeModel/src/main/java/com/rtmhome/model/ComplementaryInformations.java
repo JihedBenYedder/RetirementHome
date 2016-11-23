@@ -1,4 +1,4 @@
-package com.rtmhome;
+package com.rtmhome.model;
 
 import javax.annotation.Generated;
 import javax.persistence.Column;
