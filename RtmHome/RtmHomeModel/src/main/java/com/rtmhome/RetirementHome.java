@@ -42,7 +42,7 @@ public class RetirementHome extends Structure {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_complementary_informations" , nullable = true)
-	private ComplementaryInformations complementaryInformations;
+	private ComplementaryInformations complementaryInformations = new ComplementaryInformations();
 	
 	
 	
