@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table("RETIREMENT_HOME")
+@Table(name = "RETIREMENT_HOME")
 public class RetirementHome extends Structure {
 
 	@Id

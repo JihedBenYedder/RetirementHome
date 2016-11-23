@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table("COMPEMENTARY_INFORMATIONS")
+@Table(name = "COMPEMENTARY_INFORMATIONS")
 public class ComplementaryInformations {
 
 	@Id

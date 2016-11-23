@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table("STRUCTURE")
+@Table(name = "STRUCTURE")
 public class Structure {
 
 	@Id
