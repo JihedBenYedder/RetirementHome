@@ -9,9 +9,9 @@ import javax.persistence.Table;
 public class User {
 
 @Column(name = "id_user")
-private Long id_user;
+private Long idUser;
 
-@Column(name = "id_user")
+@Column(name = "profile")
 private String profile;
 
 @Column(name = "username")
