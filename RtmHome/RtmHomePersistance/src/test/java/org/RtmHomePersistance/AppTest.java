@@ -1,38 +1,46 @@
 package org.RtmHomePersistance;
 
-import junit.framework.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import static org.junit.Assert.assertTrue;
+
+import javax.persistence.PersistenceContext;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.*;
+
+import com.rtmhome.persistance.repository.RetirementHomeRepo;
+
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
+@EnableJpaRepositories("com.rtmhome.persistance.repository")
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class,JpaRepositoriesAutoConfiguration.class})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath*:Spring/Test-ApplicationContext.xml" })
+public class AppTest
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+	
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+	@Autowired
+	RetirementHomeRepo retirementHomeRepo;
+	
+	@Test
+	public void test() {
+		assertTrue(retirementHomeRepo==null);
+	}
 }
+
