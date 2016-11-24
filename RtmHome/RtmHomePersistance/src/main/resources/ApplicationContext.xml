@@ -10,9 +10,14 @@ http://www.springframework.org/schema/data/jpa
 http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="com.rtmhome.persistance" />
+	<context:component-scan base-package="com.rtmhome" />
 
 	<jpa:repositories base-package="com.rtmhome.persistance" />
+	
+<!-- 	<bean id="retraiteService" class="com.rtmhome.services.RetraiteService"> -->
+	    
+<!-- 	    <property name="dataSource" ref="dataSource"></property> -->
+<!-- 	</bean> -->
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -21,17 +26,6 @@ http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 			value="jdbc:postgresql://elmer.db.elephantsql.com:5432/mlvwgung" />
 		<property name="username" value="mlvwgung" />
 		<property name="password" value="RZ5t9unl0S9bbTtgzjqAYv_H4g8aLtBq" />
-	</bean>
-
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<!-- <property name="persistenceUnitName" value="springJpaPersistenceUnit" 
-			/> -->
-	</bean>
-
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 </beans>
