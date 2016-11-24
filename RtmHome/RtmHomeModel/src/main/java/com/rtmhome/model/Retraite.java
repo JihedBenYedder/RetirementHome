@@ -215,6 +215,6 @@ public class Retraite extends Person {
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_TRUSTED_PERSON", nullable = true)
-	private Guarantor trustedPerson = new Guarantor();
+	private Guarantor guarantor = new Guarantor();
 
 }
