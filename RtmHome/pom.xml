@@ -49,6 +49,11 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.8.2.RELEASE</version>
 		</dependency>
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+   		 	<artifactId>spring-boot-starter-data-jpa</artifactId>
+   		 	<version>1.4.2.RELEASE</version>
+		</dependency>
 
 		<!-- PostgreSQL Java Connector library -->
 		<dependency>
@@ -63,12 +68,17 @@
 			<version>0.9.1.2</version>
 		</dependency>
 
-		<!-- Testing tools -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-		</dependency>
+	<!-- Testing tools -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.12</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
 
 	<dependency>
 		<groupId>org.eclipse.persistence</groupId>
